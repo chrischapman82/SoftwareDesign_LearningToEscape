@@ -30,3 +30,30 @@ function which does the exact same thing as the current main function but also r
 can then use this function, and if the programmer desires they may run many simulations on many seeds, with or 
 without debug output and return the total seed to get a more accurate statistical indication of the performance 
 of the strategies used. This relates to appropriate delegation and cohesion.
+
+
+
+***** CHRIS *****
+What I've added so far
+
+Polymorphism for the Robot class.
+    Created StrongRobot, BigRobot, WeakRobot which all inherit from robot.
+    Each are in charge of their initialisation.
+
+Created helper function in Automail -> createRobot(IMailDelivery delivery, IMailPool mailPool, String robotType)
+     Returns a robot based off of given robotType
+     +   More flexible
+         Reduces repeat code
+         Easier to understand
+
+
+Changed robot1 and robot2 in Automail to ArrayList<Robot>
+    More flexible - allows for easier changes in the numbers of robots used
+    
+    Changed robot1, robot2 in simulation to (for robot : robots)
+        However, privacy here remained poor
+         
+
+Removed behaviour as input for robot and added initialiser to robot
+    Robot already contained all the information to create behaviour
+    Better encapsulation
