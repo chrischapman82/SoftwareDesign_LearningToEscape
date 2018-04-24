@@ -18,7 +18,6 @@ public class MailGenerator {
     /** This seed is used to make the behaviour deterministic */
     
     private boolean complete;
-    private IMailPool mailPool;
 
     private HashMap<Integer,ArrayList<MailItem>> allMail;
 
@@ -28,7 +27,7 @@ public class MailGenerator {
      * @param mailPool where mail items go on arrival
      * @param seed random seed for generating mail
      */
-    public MailGenerator(int mailToCreate, IMailPool mailPool, HashMap<Boolean,Integer> seed){
+    public MailGenerator(int mailToCreate, HashMap<Boolean,Integer> seed){
         if(seed.containsKey(true)){
         	this.random = new Random((long) seed.get(true));
         }
@@ -41,7 +40,6 @@ public class MailGenerator {
         mailCreated = 0;
         complete = false;
         allMail = new HashMap<Integer,ArrayList<MailItem>>();
-        this.mailPool = mailPool;
     }
 
     /**
@@ -137,19 +135,20 @@ public class MailGenerator {
     
     /**
      * While there are steps left, create a new mail item to deliver
-     * @return Priority
+     * @return ArrayList<MailItem>
      */
-    public PriorityMailItem step(){
-    	PriorityMailItem priority = null;
+    public ArrayList<MailItem> step(){
+    	
+    	ArrayList<MailItem> mailToReturn = new ArrayList<MailItem>();
+    	
     	// Check if there are any mail to create
-        if(this.allMail.containsKey(Clock.Time())){
+    	if(this.allMail.containsKey(Clock.Time())){
             for(MailItem mailItem : allMail.get(Clock.Time())){
-            	if (mailItem instanceof PriorityMailItem) priority = ((PriorityMailItem) mailItem);
-                System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
-                mailPool.addToPool(mailItem);
+            	mailToReturn.add(mailItem);
+            	System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
             }
         }
-        return priority;
+    	return mailToReturn;
     }
     
 }

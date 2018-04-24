@@ -7,22 +7,39 @@ import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.StorageTube;
 import exceptions.TubeFullException;
+import automail.MailGenerator;
 
 public class WeakStrongMailPool implements IMailPool{
 	private LinkedList<MailItem> upper;  // weak robot will take this set
 	private LinkedList<MailItem> lower;  // strong robot will take this set
 	private int divider;
 	private static final int MAX_WEIGHT = 2000;
-
-	public WeakStrongMailPool(){
+	private MailGenerator mailGenerator;
+	
+	public WeakStrongMailPool(MailGenerator mailGenerator){
+		
+		this.mailGenerator = mailGenerator;
+		
 		// Start empty
 		upper = new LinkedList<MailItem>();
 		lower = new LinkedList<MailItem>();
 		divider = Building.FLOORS / 2;  // Top normal floor for strong robot
 	}
-
+	
 	private int priority(MailItem m) {
 		return (m instanceof PriorityMailItem) ? ((PriorityMailItem) m).getPriorityLevel() : 0;
+	}
+	
+	public PriorityMailItem step() {
+		ArrayList<MailItem> incomingMail = mailGenerator.step();
+		PriorityMailItem priority = null;
+		for(MailItem mailItem: incomingMail) {
+			addToPool(mailItem);
+			if(mailItem instanceof PriorityMailItem) {
+				priority = (PriorityMailItem)mailItem;
+			}
+		}
+		return priority;
 	}
 	
 	public void addToPool(MailItem mailItem) {

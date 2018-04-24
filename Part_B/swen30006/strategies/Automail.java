@@ -2,19 +2,20 @@ package strategies;
 
 import automail.IMailDelivery;
 import automail.Robot;
+import automail.MailGenerator;
 
 public class Automail {
 	      
     public Robot robot1, robot2;
     public IMailPool mailPool;
     
-    public Automail(IMailDelivery delivery) {
+    public Automail(IMailDelivery delivery, MailGenerator mailGenerator) {
     	// Swap between simple provided strategies and your strategies here
     	    	
     	/** Initialize the MailPool */
     	
     	//// Swap the next line for the one below
-    	mailPool = new WeakStrongMailPool();
+    	mailPool = new WeakStrongMailPool(mailGenerator);
     	
         /** Initialize the RobotAction */
     	boolean weak = false;  // Can't handle more than 2000 grams
