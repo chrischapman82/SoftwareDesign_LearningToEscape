@@ -1,0 +1,58 @@
+package strategies;
+
+import automail.IMailDelivery;
+import automail.Robot;
+import automail.RobotBig;
+import automail.RobotStrong;
+import automail.RobotWeak;
+
+public class Automail {
+	      
+    public Robot robot1, robot2;
+    public IMailPool mailPool;
+    
+    public static final String BOT_WEAK = "weak robot";
+    public static final String BOT_STRONG = "strong robot";
+    public static final String BOT_BIG = "big robot";
+    
+    public Automail(IMailDelivery delivery) {
+    	// Swap between simple provided strategies and your strategies here
+    	    	
+    	/** Initialize the MailPool */
+    	
+    	//// Swap the next line for the one below
+    	mailPool = new WeakStrongMailPool();
+    	
+        /** Initialize the RobotAction */
+    	boolean weak = false;  // Can't handle more than 2000 grams
+    	boolean strong = true; // Can handle any weight that arrives at the building
+    	
+    	// REMOVED THE BEHAVIOUR HERE
+    	    	
+    	/** Initialize robot */
+    	robot1 = createRobot(delivery, mailPool, BOT_WEAK);/* shared behaviour because identical and stateless */
+    	robot2 = createRobot(delivery, mailPool, BOT_STRONG);
+    }
+    
+    
+    /* TODO added chris 24 apr
+    // Creates and returns a robot based off of:
+     * 
+     */
+    
+    public Robot createRobot(IMailDelivery delivery, IMailPool mailPool, String robotName) {
+    	switch (robotName) {
+    	case (BOT_WEAK):
+    		return new RobotWeak(delivery, mailPool);
+    	case (BOT_STRONG):
+    		return new RobotStrong(delivery, mailPool);
+    	case (BOT_BIG):
+    		return new RobotBig(delivery, mailPool);
+    	default:
+    		return null;
+    	}
+    	
+    }
+    
+    
+}

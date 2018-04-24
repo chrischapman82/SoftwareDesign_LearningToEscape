@@ -1,0 +1,6 @@
+package automail;
+
+public class RobotWeak extends Robot{
+
+	public RobotWeak()
+}

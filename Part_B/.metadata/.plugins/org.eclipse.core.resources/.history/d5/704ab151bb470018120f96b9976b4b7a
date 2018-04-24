@@ -1,0 +1,10 @@
+package automail;
+
+import strategies.IMailPool;
+
+public class RobotWeak extends Robot{
+
+	public RobotWeak(IMailDelivery delivery, IMailPool mailPool) {
+		
+	}
+}
