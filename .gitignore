@@ -4,6 +4,6 @@
 # except these files
 !Automail_draw.io
 !automail.Properties
-!swen30006/*
+!/Part_B/swen30006/*
 !*.txt
 !*.md
