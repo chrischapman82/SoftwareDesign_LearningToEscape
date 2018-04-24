@@ -1,2 +1,8 @@
 Discuss the changes you have made in your branch:
 
+Hello I'm making this edit through the browser. I can't seem to add or commit this text file it in git. 
+For now I've done some work on integrating properties file into the system. All but one of the settings are read into the program. Everythng is done in main() so far, which may change.
+
+Final attributes in Simulation became non-final to make this work. I believe that is ok as there are no setters and the variable is private so it is effectively final to outside classes anyway. Of course, a developer with access to the Simulation class has the power to delete the final modifier even if I left it in.
+
+Building floors are not set because it is a final variable in another class. I believe the building class may be removed/changed so I've left that for later.
