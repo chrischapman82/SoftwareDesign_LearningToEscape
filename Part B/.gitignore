@@ -1,0 +1,9 @@
+# ignores everything
+*
+
+# except these files
+!Automail_draw.io
+!automail.Properties
+!swen30006/*
+!*.txt
+!*.md
