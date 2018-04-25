@@ -27,19 +27,16 @@ public class Automail {
     	//// Swap the next two lines for the two below those
     	IRobotBehaviour robotBehaviourW = new MyRobotBehaviour(weak);
     	IRobotBehaviour robotBehaviourS = new MyRobotBehaviour(strong);
-    	    	
     	//initialise robots based on specifications in properties file
     	if (PropertiesLoader.getRobot1Type().equals("weak")) {
     		robot1 = new Robot(robotBehaviourW, delivery, mailPool, weak);
     	} else if (PropertiesLoader.getRobot1Type().equals("strong")) {
     		robot1 = new Robot(robotBehaviourS, delivery, mailPool, strong);
     	}
-    	
     	if (PropertiesLoader.getRobot2Type().equals("weak")) {
     		robot2 = new Robot(robotBehaviourW, delivery, mailPool, weak);
-    	} else if (PropertiesLoader.getRobot1Type().equals("strong")) {
+    	} else if (PropertiesLoader.getRobot2Type().equals("strong")) {
     		robot2 = new Robot(robotBehaviourS, delivery, mailPool, strong);
     	}
-
-    
+    }
 }

@@ -16,14 +16,11 @@ import java.util.Properties;
  */
 public class Simulation {
 
-    /** Constant for the mail generator */
-    private static int MAIL_TO_CREATE;
-    private static double PENALTY;
-
     private static ArrayList<MailItem> MAIL_DELIVERED;
     private static double total_score = 0;
 
     public static void main(String[] args) { //throws IOException {
+    	PropertiesLoader.loadProperties();
         /** Used to see whether a seed is initialized or not */
         HashMap<Boolean, Integer> seedMap = new HashMap<>();
         /** Read the first argument and save it as a seed if it exists */

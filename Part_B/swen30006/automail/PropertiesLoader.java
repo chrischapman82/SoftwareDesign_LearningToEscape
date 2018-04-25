@@ -13,7 +13,7 @@ public final class PropertiesLoader {
 	private static String robot1Type;
 	private static String robot2Type;
 	
-	private PropertiesLoader() {
+	public static void loadProperties() {
 		// Should probably be using properties here
     	Properties automailProperties = new Properties();
 		
