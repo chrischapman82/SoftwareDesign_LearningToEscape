@@ -19,7 +19,7 @@ Renamed "strong" variable to "isStrong" in Robot
 
 Removed whatever method arguments that are given by Properties as they can be accessed directly now. Removing arguments is decreasing coupling.
 
-Removed variable "complete" (finished creating mail flag) in MailGenerator
+Removed variable "complete" (finished creating mail flag) in MailGenerator, adjusted other parts appropriately
 
 mailgenerator now longer has any arguments. It gets mail to create and seed from PropertiesLoader and instead of inputting mailitems directly to a mailpool it returns mail for the current clock time in getMail(). This has reduced its coupling with simulation since it doesnt rely on args from ouside anymore. Furthermore it does not need to store a mailpool as an attribute. Increased coupling with PropertiesLoader. 
 

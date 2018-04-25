@@ -24,9 +24,6 @@ public class Automail {
     	boolean weak = false;  // Can't handle more than 2000 grams
     	boolean strong = true; // Can handle any weight that arrives at the building
     	
-
-    	
-    	
     	//// Swap the next two lines for the two below those
     	IRobotBehaviour robotBehaviourW = new MyRobotBehaviour(weak);
     	IRobotBehaviour robotBehaviourS = new MyRobotBehaviour(strong);

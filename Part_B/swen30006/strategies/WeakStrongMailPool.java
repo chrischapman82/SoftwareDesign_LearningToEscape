@@ -15,7 +15,6 @@ public class WeakStrongMailPool implements IMailPool{
 	private LinkedList<MailItem> lower;  // strong robot will take this set
 	private int divider;
 	private static final int MAX_WEIGHT = 2000;
-    private MailGenerator mailGen;
     
 	public WeakStrongMailPool(){
 		// Start empty
@@ -32,10 +31,10 @@ public class WeakStrongMailPool implements IMailPool{
 	}
 	
 	public void addToPool(MailItem mailItem) {
-		System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
 		// This doesn't attempt to put the re-add items back in time order but there will be relatively few of them,
 		// from the strong robot only, and only when it is recalled with undelivered items.
 		// Check whether mailItem is for strong robot
+		System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
 		if (mailItem instanceof PriorityMailItem || mailItem.getWeight() > MAX_WEIGHT || mailItem.getDestFloor() <= divider) {
 			if (mailItem instanceof PriorityMailItem) {  // Add in priority order
 				int priority = ((PriorityMailItem) mailItem).getPriorityLevel();
