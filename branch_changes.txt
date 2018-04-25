@@ -15,4 +15,9 @@ Replaced previous instances of variables with corresponding PropertiesLoader.get
 
 Replaced hashmap seed with int value only. Seed existence can be chacked against null, no need for such a data structure.
 
-Renamed strong variable to isStrong in Robot
+Renamed "strong" variable to "isStrong" in Robot
+
+Removed whatever method arguments that are given by Properties as they can be accessed directly now. Removing arguments is decreasing coupling.
+
+Removed variable "complete" (finished creating mail flag) in MailGenerator
+

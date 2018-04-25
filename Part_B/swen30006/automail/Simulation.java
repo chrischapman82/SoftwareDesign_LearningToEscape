@@ -5,11 +5,8 @@ import exceptions.ItemTooHeavyException;
 import exceptions.MailAlreadyDeliveredException;
 import strategies.Automail;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
+
 
 /**
  * This class simulates the behaviour of AutoMail
@@ -23,7 +20,7 @@ public class Simulation {
     	PropertiesLoader.loadProperties();
 
         Automail automail = new Automail(new ReportDelivery());
-        MailGenerator generator = new MailGenerator(PropertiesLoader.getMailToCreate(), automail.mailPool, PropertiesLoader.getSeed());
+        MailGenerator generator = new MailGenerator(automail.mailPool);
         
         /** Initiate all the mail */
         generator.generateAllMail();
