@@ -48,8 +48,8 @@ public class Simulation {
 		int i = Integer.parseInt(automailProperties.getProperty("Name_of_Property"));
 		PENALTY = Double.parseDouble(automailProperties.getProperty("Delivery_Penalty"));
 		MAIL_TO_CREATE = Integer.parseInt(automailProperties.getProperty("Mail_to_Create"));
-		int seed = Integer.parseInt(automailProperties.getProperty("Seed"));
-        int maxSimTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
+		final int seed = Integer.parseInt(automailProperties.getProperty("Seed"));
+        final int maxSimTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
         
 		//Building.FLOORS = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
         MAIL_DELIVERED = new ArrayList<MailItem>();
