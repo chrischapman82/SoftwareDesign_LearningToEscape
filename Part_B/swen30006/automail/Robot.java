@@ -20,7 +20,7 @@ public class Robot {
     private int current_floor;
     private int destination_floor;
     private IMailPool mailPool;
-    private boolean strong;
+    private boolean isStrong;
     
     private MailItem deliveryItem;
     
@@ -44,7 +44,7 @@ public class Robot {
         this.behaviour = behaviour;
         this.delivery = delivery;
         this.mailPool = mailPool;
-        this.strong = strong;
+        this.isStrong = strong;
         this.deliveryCounter = 0;
     }
 
@@ -71,7 +71,7 @@ public class Robot {
                 }
     		case WAITING:
     			/** Tell the sorter the robot is ready */
-    			mailPool.fillStorageTube(tube, strong);
+    			mailPool.fillStorageTube(tube, isStrong);
                 // System.out.println("Tube total size: "+tube.getTotalOfSizes());
                 /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
                 if(!tube.isEmpty()){
@@ -129,7 +129,7 @@ public class Robot {
     private void setRoute() throws ItemTooHeavyException{
         /** Pop the item from the StorageUnit */
         deliveryItem = tube.pop();
-        if (!strong && deliveryItem.weight > 2000) throw new ItemTooHeavyException(); 
+        if (!isStrong && deliveryItem.weight > 2000) throw new ItemTooHeavyException(); 
         /** Set the destination floor */
         destination_floor = deliveryItem.getDestFloor();
     }

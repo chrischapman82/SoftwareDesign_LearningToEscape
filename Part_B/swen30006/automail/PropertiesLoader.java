@@ -8,7 +8,7 @@ public final class PropertiesLoader {
 	private static double timePenalty;
 	private static int mailToCreate;
 	private static int seed;
-	private static int maximumSimulationTime;
+	private static int lastDeliveryTime;
 	private static int floorsInBuilding;
 	private static String robot1Type;
 	private static String robot2Type;
@@ -35,7 +35,7 @@ public final class PropertiesLoader {
 		timePenalty = Double.parseDouble(automailProperties.getProperty("Delivery_Penalty"));
 		mailToCreate = Integer.parseInt(automailProperties.getProperty("Mail_to_Create"));
 		seed = Integer.parseInt(automailProperties.getProperty("Seed"));
-        maximumSimulationTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
+        lastDeliveryTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
         floorsInBuilding = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
         robot1Type = automailProperties.getProperty("Robot_Type_1");
         robot2Type = automailProperties.getProperty("Robot_Type_2");
@@ -53,8 +53,8 @@ public final class PropertiesLoader {
 		return seed;
 	}
 
-	public static int getMaximumSimulationTime() {
-		return maximumSimulationTime;
+	public static int getLastDeliveryTime() {
+		return lastDeliveryTime;
 	}
 
 	public static int getFloorsInBuilding() {

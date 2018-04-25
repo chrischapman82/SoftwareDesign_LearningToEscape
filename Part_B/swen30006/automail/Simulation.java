@@ -21,19 +21,15 @@ public class Simulation {
 
     public static void main(String[] args) { //throws IOException {
     	PropertiesLoader.loadProperties();
-        /** Used to see whether a seed is initialized or not */
-        HashMap<Boolean, Integer> seedMap = new HashMap<>();
-        /** Read the first argument and save it as a seed if it exists */
-        seedMap.put(true, PropertiesLoader.getSeed());
 
         Automail automail = new Automail(new ReportDelivery());
-        MailGenerator generator = new MailGenerator(PropertiesLoader.getMailToCreate(), automail.mailPool, seedMap);
+        MailGenerator generator = new MailGenerator(PropertiesLoader.getMailToCreate(), automail.mailPool, PropertiesLoader.getSeed());
         
         /** Initiate all the mail */
         generator.generateAllMail();
         PriorityMailItem priority;
         MAIL_DELIVERED = new ArrayList<MailItem>();
-        while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE && Clock.Time() <= PropertiesLoader.getMaximumSimulationTime()) {
+        while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
         	//System.out.println("-- Step: "+Clock.Time());
             priority = generator.step();
             if (priority != null) {
