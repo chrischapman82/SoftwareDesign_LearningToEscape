@@ -20,18 +20,24 @@ public class Simulation {
     	PropertiesLoader.loadProperties();
 
         Automail automail = new Automail(new ReportDelivery());
-        MailGenerator generator = new MailGenerator(automail.mailPool);
+        MailGenerator generator = new MailGenerator();
         
         /** Initiate all the mail */
         generator.generateAllMail();
-        PriorityMailItem priority;
+        ArrayList<MailItem> mail;
         MAIL_DELIVERED = new ArrayList<MailItem>();
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
         	//System.out.println("-- Step: "+Clock.Time());
-            priority = generator.step();
-            if (priority != null) {
-            	automail.robot1.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
-            	automail.robot2.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
+            mail = generator.getMail();
+            if(mail != null) {
+	            for(MailItem m: mail) {
+	            	automail.mailPool.addToPool(m);
+	            	if (m instanceof PriorityMailItem) {
+	            		PriorityMailItem pmail = (PriorityMailItem) m;
+	            		automail.robot1.behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
+	                	automail.robot2.behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
+	            	}
+	            }
             }
             try {
 				automail.robot1.step();

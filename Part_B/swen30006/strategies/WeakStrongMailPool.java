@@ -3,6 +3,8 @@ package strategies;
 import java.util.*;
 
 import automail.Building;
+import automail.Clock;
+import automail.MailGenerator;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.StorageTube;
@@ -13,12 +15,16 @@ public class WeakStrongMailPool implements IMailPool{
 	private LinkedList<MailItem> lower;  // strong robot will take this set
 	private int divider;
 	private static final int MAX_WEIGHT = 2000;
-
+    private MailGenerator mailGen;
+    
 	public WeakStrongMailPool(){
 		// Start empty
 		upper = new LinkedList<MailItem>();
 		lower = new LinkedList<MailItem>();
 		divider = Building.FLOORS / 2;  // Top normal floor for strong robot
+		//mailGen = new MailGenerator();
+		//mailGen.generateAllMail();
+		
 	}
 
 	private int priority(MailItem m) {
@@ -26,6 +32,7 @@ public class WeakStrongMailPool implements IMailPool{
 	}
 	
 	public void addToPool(MailItem mailItem) {
+		System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
 		// This doesn't attempt to put the re-add items back in time order but there will be relatively few of them,
 		// from the strong robot only, and only when it is recalled with undelivered items.
 		// Check whether mailItem is for strong robot

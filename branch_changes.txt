@@ -21,3 +21,5 @@ Removed whatever method arguments that are given by Properties as they can be ac
 
 Removed variable "complete" (finished creating mail flag) in MailGenerator
 
+mailgenerator now longer has any arguments. It gets mail to create and seed from PropertiesLoader and instead of inputting mailitems directly to a mailpoo it returns mail for the current clock time in getMail()
+

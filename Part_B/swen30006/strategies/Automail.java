@@ -1,6 +1,7 @@
 package strategies;
 
 import automail.IMailDelivery;
+import automail.MailGenerator;
 import automail.PropertiesLoader;
 import automail.Robot;
 
@@ -22,7 +23,7 @@ public class Automail {
     	boolean strong = true; // Can handle any weight that arrives at the building
     	
 
-        
+    	
     	
     	//// Swap the next two lines for the two below those
     	IRobotBehaviour robotBehaviourW = new MyRobotBehaviour(weak);
