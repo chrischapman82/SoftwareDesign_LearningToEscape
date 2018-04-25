@@ -39,14 +39,7 @@ public class Simulation {
 	            	}
 	            }
             }
-            try {
-				automail.robot1.step();
-				automail.robot2.step();
-			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
-				e.printStackTrace();
-				System.out.println("Simulation unable to complete.");
-				System.exit(0);
-			}
+            automail.step();
             Clock.Tick();
         }
         printResults();

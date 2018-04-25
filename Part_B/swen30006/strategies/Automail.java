@@ -4,6 +4,8 @@ import automail.IMailDelivery;
 import automail.MailGenerator;
 import automail.PropertiesLoader;
 import automail.Robot;
+import exceptions.ExcessiveDeliveryException;
+import exceptions.ItemTooHeavyException;
 
 public class Automail {
 	      
@@ -39,5 +41,17 @@ public class Automail {
     	} else if (PropertiesLoader.getRobot2Type().equals("strong")) {
     		robot2 = new Robot(robotBehaviourS, delivery, mailPool, strong);
     	}
+    }
+    
+    
+    public void step() {
+    	try {
+			robot1.step();
+			robot2.step();
+		} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
+			e.printStackTrace();
+			System.out.println("Simulation unable to complete.");
+			System.exit(0);
+		}
     }
 }

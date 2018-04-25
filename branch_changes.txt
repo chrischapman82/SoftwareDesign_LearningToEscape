@@ -21,5 +21,7 @@ Removed whatever method arguments that are given by Properties as they can be ac
 
 Removed variable "complete" (finished creating mail flag) in MailGenerator
 
-mailgenerator now longer has any arguments. It gets mail to create and seed from PropertiesLoader and instead of inputting mailitems directly to a mailpoo it returns mail for the current clock time in getMail()
+mailgenerator now longer has any arguments. It gets mail to create and seed from PropertiesLoader and instead of inputting mailitems directly to a mailpool it returns mail for the current clock time in getMail(). This has reduced its coupling with simulation since it doesnt rely on args from ouside anymore. Furthermore it does not need to store a mailpool as an attribute. Increased coupling with PropertiesLoader. 
+
+made a step() function in automail so that simulation doesnt have to access automail.robot.step(), not is just automail.step(). robot and smulation are less coupled.
 
