@@ -6,7 +6,7 @@ public class Clock {
     private static int Time = 0;
     
     /** The threshold for the latest time for mail to arrive **/
-    public static final int LAST_DELIVERY_TIME = 300;
+    public static final int LAST_DELIVERY_TIME = PropertiesLoader.getLastDeliveryTime();
 
     public static int Time() {
     	return Time;

@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.Properties;
 
 public final class PropertiesLoader {
-	private static double timePenalty;
-	private static int mailToCreate;
-	private static int seed;
-	private static int maximumSimulationTime;
-	private static int floorsInBuilding;
+	private static Double timePenalty;
+	private static Integer mailToCreate;
+	private static Integer seed;
+	private static Integer lastDeliveryTime;
+	private static Integer floorsInBuilding;
 	private static String robot1Type;
 	private static String robot2Type;
 	
@@ -35,29 +35,29 @@ public final class PropertiesLoader {
 		timePenalty = Double.parseDouble(automailProperties.getProperty("Delivery_Penalty"));
 		mailToCreate = Integer.parseInt(automailProperties.getProperty("Mail_to_Create"));
 		seed = Integer.parseInt(automailProperties.getProperty("Seed"));
-        maximumSimulationTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
+        lastDeliveryTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
         floorsInBuilding = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
         robot1Type = automailProperties.getProperty("Robot_Type_1");
         robot2Type = automailProperties.getProperty("Robot_Type_2");
 	}
 
-	public static double getTimePenalty() {
+	public static Double getTimePenalty() {
 		return timePenalty;
 	}
 
-	public static int getMailToCreate() {
+	public static Integer getMailToCreate() {
 		return mailToCreate;
 	}
 
-	public static int getSeed() {
+	public static Integer getSeed() {
 		return seed;
 	}
 
-	public static int getMaximumSimulationTime() {
-		return maximumSimulationTime;
+	public static Integer getLastDeliveryTime() {
+		return lastDeliveryTime;
 	}
 
-	public static int getFloorsInBuilding() {
+	public static Integer getFloorsInBuilding() {
 		return floorsInBuilding;
 	}
 	public static String getRobot1Type() {

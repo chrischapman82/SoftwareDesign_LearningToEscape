@@ -3,11 +3,14 @@ package strategies;
 import java.util.ArrayList;
 
 import automail.IMailDelivery;
+import automail.MailGenerator;
 import automail.PropertiesLoader;
 import automail.Robot;
 import automail.RobotBig;
 import automail.RobotStrong;
 import automail.RobotWeak;
+import exceptions.ExcessiveDeliveryException;
+import exceptions.ItemTooHeavyException;
 
 public class Automail {
 	
@@ -29,10 +32,7 @@ public class Automail {
     	/** Initialize the MailPool */
     	mailPool = new WeakStrongMailPool();
     	
-    	// REMOVED THE BEHAVIOUR HERE
-    	    	
-    	// for adding types of robots
-        
+
     	
     	//initialise robots based on specifications in properties file
     	
@@ -59,5 +59,17 @@ public class Automail {
     	default:
     		return null;
     	}
+    }
+    
+    
+    public void step() {
+    	try {
+			robot1.step();
+			robot2.step();
+		} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
+			e.printStackTrace();
+			System.out.println("Simulation unable to complete.");
+			System.exit(0);
+		}
     }
 }

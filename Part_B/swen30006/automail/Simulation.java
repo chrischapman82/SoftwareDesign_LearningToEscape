@@ -6,7 +6,7 @@ import exceptions.MailAlreadyDeliveredException;
 import strategies.Automail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 /**
  * This class simulates the behaviour of AutoMail
@@ -18,41 +18,29 @@ public class Simulation {
 
     public static void main(String[] args) { //throws IOException {
     	PropertiesLoader.loadProperties();
-        /** Used to see whether a seed is initialized or not */
-        HashMap<Boolean, Integer> seedMap = new HashMap<>();
-        /** Read the first argument and save it as a seed if it exists */
-        seedMap.put(true, PropertiesLoader.getSeed());
 
         Automail automail = new Automail(new ReportDelivery());
-        MailGenerator generator = new MailGenerator(PropertiesLoader.getMailToCreate(), automail.mailPool, seedMap);
+        MailGenerator generator = new MailGenerator();
         
         /** Initiate all the mail */
         generator.generateAllMail();
-        PriorityMailItem priority;
+        ArrayList<MailItem> mail;
         MAIL_DELIVERED = new ArrayList<MailItem>();
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
         	//System.out.println("-- Step: "+Clock.Time());
-            priority = generator.step();
-            if (priority != null) {
-            	
-            	// TODO Changed here to for all loop
-            	for (Robot robot : automail.robots) {
-            		robot.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
-            	}
+            mail = generator.getMail();
+            if(mail != null) {
+	            for(MailItem m: mail) {
+	            	automail.mailPool.addToPool(m);
+	            	if (m instanceof PriorityMailItem) {
+	            		PriorityMailItem pmail = (PriorityMailItem) m;
+	            		automail.robot1.behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
+	                	automail.robot2.behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
+	            	}
+	            }
             }
-            try {
-            	
-            	// Changed here to for all loop to allow for the use of an arraylist
-            	// and different numbers of robots
-            	for (Robot robot : automail.robots) {
-            		robot.step();
-            	}
+            automail.step();
 
-			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
-				e.printStackTrace();
-				System.out.println("Simulation unable to complete.");
-				System.exit(0);
-			}
             Clock.Tick();
         }
         printResults();
