@@ -47,6 +47,7 @@ public class Automail {
      * robotName	- The type of robot to be created
      * delivery		- The delivery used
      * mailPool		- The shared mailPool for all robots
+     * 
      */
     public Robot createRobot(IMailDelivery delivery, IMailPool mailPool, String robotName) {
     	switch (robotName) {
