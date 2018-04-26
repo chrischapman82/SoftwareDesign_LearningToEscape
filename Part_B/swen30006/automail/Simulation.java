@@ -18,7 +18,6 @@ public class Simulation {
     public static void main(String[] args) { 
 
     	PropertiesLoader.loadProperties();
-    	System.out.println(Integer.toString(PropertiesLoader.getFloorsInBuilding()));
 
         Automail automail = new Automail(new ReportDelivery());
         MailGenerator generator = new MailGenerator();

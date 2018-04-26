@@ -18,28 +18,28 @@ public class Automail {
     public ArrayList<Robot> robots;
     public IMailPool mailPool;
     
-    
     // TODO I am unsure about whether this is the right place to put these...
     public static final String BOT_WEAK = "weak";
     public static final String BOT_STRONG = "strong";
     public static final String BOT_BIG = "big";
     
     public Automail(IMailDelivery delivery) {
-    	// Swap between simple provided strategies and your strategies here
     	    	
     	// Initialise the robots arraylist
     	robots = new ArrayList<>();
     	
     	/** Initialize the MailPool */
     	mailPool = new WeakStrongMailPool();
+    	
     	String robot1Type = PropertiesLoader.getRobot1Type();
     	String robot2Type = PropertiesLoader.getRobot2Type();
+    	
     	if(robot1Type == BOT_WEAK && robot2Type == BOT_WEAK) {
     		System.err.println("Two weak robots is too weak");
     		System.exit(0);
     	}
-    	//initialise robots based on specifications in properties file
     	
+    	//create robots
     	robots.add(createRobot(delivery, mailPool, robot1Type));
     	robots.add(createRobot(delivery, mailPool, robot2Type));
     }
