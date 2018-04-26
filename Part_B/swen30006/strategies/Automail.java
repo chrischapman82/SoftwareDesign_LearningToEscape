@@ -8,6 +8,8 @@ import automail.Robot;
 import automail.RobotBig;
 import automail.RobotStrong;
 import automail.RobotWeak;
+import automail.MailItem;
+import automail.PriorityMailItem;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 
@@ -55,6 +57,19 @@ public class Automail {
     	default:
     		return null;
     	}
+    }
+    
+    // adds an array list of mail to mail pool and notifies all robots if any priority items
+    public void addIncomingMail(ArrayList<MailItem> mail) {
+    	// add the mail to the pool
+        for(MailItem m: mail) {
+        	mailPool.addToPool(m);
+        	//check for priority mail to send priority arrival alert to robots
+        	if (m instanceof PriorityMailItem) {
+        		PriorityMailItem pmail = (PriorityMailItem) m;
+            	priorityArrival(pmail.getPriorityLevel(), m.getWeight());
+        	}
+        }
     }
     
     public void priorityArrival(int priorityLevel, int weight) {

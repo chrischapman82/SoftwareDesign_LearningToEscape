@@ -17,8 +17,8 @@ public class Simulation {
     private static double total_score = 0;
 
     public static void main(String[] args) { //throws IOException {
-    	System.out.println("hello");
     	PropertiesLoader.loadProperties();
+    	System.out.println(Integer.toString(PropertiesLoader.getFloorsInBuilding()));
 
         Automail automail = new Automail(new ReportDelivery());
         MailGenerator generator = new MailGenerator();
@@ -39,14 +39,7 @@ public class Simulation {
                 continue;
             }
         	//do have new mail, add the mail to the pool
-            for(MailItem m: mail) {
-            	automail.mailPool.addToPool(m);
-            	//check for priority mail to send priority arrival alert to robots
-            	if (m instanceof PriorityMailItem) {
-            		PriorityMailItem pmail = (PriorityMailItem) m;
-                	automail.priorityArrival(pmail.getPriorityLevel(), m.weight);
-            	}
-            }
+            automail.addIncomingMail(mail);
             //continue simulation
             automail.step();
             Clock.Tick();

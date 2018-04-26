@@ -1,5 +1,7 @@
 package automail;
 
+import automail.PropertiesLoader;
+
 public class Building {
 	
 	
