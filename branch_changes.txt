@@ -28,3 +28,7 @@ made a step() function in automail so that simulation doesnt have to access auto
 added comments
 
 added support for robot array in automail. made various robot attributes public to make it work
+
+check for invalid robot config (2 weak robots) and exit system if detected
+
+put generateAllMail in MailGenerator constructor

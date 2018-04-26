@@ -40,6 +40,7 @@ public class MailGenerator {
         
         mailCreated = 0;
         allMail = new HashMap<Integer,ArrayList<MailItem>>();
+        generateAllMail();
     }
 
     /**
