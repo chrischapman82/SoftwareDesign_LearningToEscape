@@ -35,8 +35,8 @@ public class Simulation {
 	            	automail.mailPool.addToPool(m);
 	            	if (m instanceof PriorityMailItem) {
 	            		PriorityMailItem pmail = (PriorityMailItem) m;
-	            		automail.robot1.behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
-	                	automail.robot2.behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
+	            		automail.robots.get(0).behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
+	                	automail.robots.get(1).behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
 	            	}
 	            }
             }

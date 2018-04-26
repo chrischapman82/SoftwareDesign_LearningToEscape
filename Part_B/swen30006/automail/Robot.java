@@ -9,7 +9,7 @@ import strategies.MyRobotBehaviour;
 /**
  * The robot delivers mail!
  */
-public class Robot {
+public abstract class Robot {
 
 	StorageTube tube;
     IRobotBehaviour behaviour;

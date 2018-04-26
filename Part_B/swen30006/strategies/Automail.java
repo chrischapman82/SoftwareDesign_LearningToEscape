@@ -64,8 +64,8 @@ public class Automail {
     
     public void step() {
     	try {
-			robot1.step();
-			robot2.step();
+			robots.get(0).step();
+			robots.get(1).step();
 		} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
 			e.printStackTrace();
 			System.out.println("Simulation unable to complete.");
