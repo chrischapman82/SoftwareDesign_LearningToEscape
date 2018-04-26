@@ -36,7 +36,6 @@ public class MailGenerator {
         // Vary arriving mail by +/-20%
         int mailToCreate = PropertiesLoader.getMailToCreate();
         MAIL_TO_CREATE = mailToCreate*4/5 + random.nextInt(mailToCreate*2/5);
-        // System.out.println("Num Mail Items: "+MAIL_TO_CREATE);
         
         mailCreated = 0;
         allMail = new HashMap<Integer,ArrayList<MailItem>>();

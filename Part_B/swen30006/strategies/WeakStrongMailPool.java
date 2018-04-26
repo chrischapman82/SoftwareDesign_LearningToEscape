@@ -4,7 +4,6 @@ import java.util.*;
 
 import automail.Building;
 import automail.Clock;
-import automail.MailGenerator;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.StorageTube;
@@ -21,8 +20,6 @@ public class WeakStrongMailPool implements IMailPool{
 		upper = new LinkedList<MailItem>();
 		lower = new LinkedList<MailItem>();
 		divider = Building.FLOORS / 2;  // Top normal floor for strong robot
-		//mailGen = new MailGenerator();
-		//mailGen.generateAllMail();
 	}
 
 	private int priority(MailItem m) {
