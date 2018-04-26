@@ -3,6 +3,7 @@ package strategies;
 import java.util.ArrayList;
 
 import automail.IMailDelivery;
+import automail.PropertiesLoader;
 import automail.Robot;
 import automail.RobotBig;
 import automail.RobotStrong;
@@ -15,9 +16,9 @@ public class Automail {
     
     
     // TODO I am unsure about whether this is the right place to put these...
-    public static final String BOT_WEAK = "weak robot";
-    public static final String BOT_STRONG = "strong robot";
-    public static final String BOT_BIG = "big robot";
+    public static final String BOT_WEAK = "weak";
+    public static final String BOT_STRONG = "strong";
+    public static final String BOT_BIG = "big";
     
     public Automail(IMailDelivery delivery) {
     	// Swap between simple provided strategies and your strategies here
@@ -31,12 +32,17 @@ public class Automail {
     	// REMOVED THE BEHAVIOUR HERE
     	    	
     	// for adding types of robots
-    	robots.add(createRobot(delivery, mailPool, BOT_WEAK));
-    	robots.add(createRobot(delivery, mailPool, BOT_STRONG));
+        
+    	
+    	//initialise robots based on specifications in properties file
+    	
+    	robots.add(createRobot(delivery, mailPool, PropertiesLoader.getRobot1Type()));
+    	robots.add(createRobot(delivery, mailPool, PropertiesLoader.getRobot2Type()));
+    	
     }
     
     
-    /* TODO added chris 24 apr
+    /* 
      * Creates and returns a robot based off of:
      * robotName	- The type of robot to be created
      * delivery		- The delivery used
@@ -53,8 +59,5 @@ public class Automail {
     	default:
     		return null;
     	}
-    	
     }
-    
-    
 }

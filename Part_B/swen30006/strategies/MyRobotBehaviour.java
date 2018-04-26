@@ -1,5 +1,4 @@
 package strategies;
-import automail.Clock;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.StorageTube;
