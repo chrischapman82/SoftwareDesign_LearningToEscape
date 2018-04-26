@@ -5,11 +5,8 @@ import exceptions.ItemTooHeavyException;
 import exceptions.MailAlreadyDeliveredException;
 import strategies.Automail;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Properties;
 
 /**
  * This class simulates the behaviour of AutoMail
@@ -33,16 +30,24 @@ public class Simulation {
         generator.generateAllMail();
         PriorityMailItem priority;
         MAIL_DELIVERED = new ArrayList<MailItem>();
-        while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE && Clock.Time() <= PropertiesLoader.getMaximumSimulationTime()) {
+        while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
         	//System.out.println("-- Step: "+Clock.Time());
             priority = generator.step();
             if (priority != null) {
-            	automail.robot1.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
-            	automail.robot2.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
+            	
+            	// TODO Changed here to for all loop
+            	for (Robot robot : automail.robots) {
+            		robot.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
+            	}
             }
             try {
-				automail.robot1.step();
-				automail.robot2.step();
+            	
+            	// Changed here to for all loop to allow for the use of an arraylist
+            	// and different numbers of robots
+            	for (Robot robot : automail.robots) {
+            		robot.step();
+            	}
+
 			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");

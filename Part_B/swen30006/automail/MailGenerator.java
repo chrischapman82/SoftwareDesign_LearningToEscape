@@ -28,6 +28,7 @@ public class MailGenerator {
      * @param mailPool where mail items go on arrival
      * @param seed random seed for generating mail
      */
+    
     public MailGenerator(int mailToCreate, IMailPool mailPool, HashMap<Boolean,Integer> seed){
         if(seed.containsKey(true)){
         	this.random = new Random((long) seed.get(true));

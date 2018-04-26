@@ -1,42 +1,64 @@
 package strategies;
 
+import java.util.ArrayList;
+
 import automail.IMailDelivery;
 import automail.PropertiesLoader;
 import automail.Robot;
+import automail.RobotBig;
+import automail.RobotStrong;
+import automail.RobotWeak;
 
 public class Automail {
-	      
-    public Robot robot1, robot2;
+	
+    public ArrayList<Robot> robots;
     public IMailPool mailPool;
+    
+    
+    // TODO I am unsure about whether this is the right place to put these...
+    public static final String BOT_WEAK = "weak";
+    public static final String BOT_STRONG = "strong";
+    public static final String BOT_BIG = "big";
     
     public Automail(IMailDelivery delivery) {
     	// Swap between simple provided strategies and your strategies here
     	    	
-    	/** Initialize the MailPool */
+    	// Initialise the robots arraylist
+    	robots = new ArrayList<>();
     	
-    	//// Swap the next line for the one below
+    	/** Initialize the MailPool */
     	mailPool = new WeakStrongMailPool();
     	
-    	/** Initialize the RobotAction */
-    	boolean weak = false;  // Can't handle more than 2000 grams
-    	boolean strong = true; // Can handle any weight that arrives at the building
-    	
-
+    	// REMOVED THE BEHAVIOUR HERE
+    	    	
+    	// for adding types of robots
         
     	
-    	//// Swap the next two lines for the two below those
-    	IRobotBehaviour robotBehaviourW = new MyRobotBehaviour(weak);
-    	IRobotBehaviour robotBehaviourS = new MyRobotBehaviour(strong);
     	//initialise robots based on specifications in properties file
-    	if (PropertiesLoader.getRobot1Type().equals("weak")) {
-    		robot1 = new Robot(robotBehaviourW, delivery, mailPool, weak);
-    	} else if (PropertiesLoader.getRobot1Type().equals("strong")) {
-    		robot1 = new Robot(robotBehaviourS, delivery, mailPool, strong);
-    	}
-    	if (PropertiesLoader.getRobot2Type().equals("weak")) {
-    		robot2 = new Robot(robotBehaviourW, delivery, mailPool, weak);
-    	} else if (PropertiesLoader.getRobot2Type().equals("strong")) {
-    		robot2 = new Robot(robotBehaviourS, delivery, mailPool, strong);
+    	
+    	robots.add(createRobot(delivery, mailPool, PropertiesLoader.getRobot1Type()));
+    	robots.add(createRobot(delivery, mailPool, PropertiesLoader.getRobot2Type()));
+    	
+    }
+    
+    
+    /* 
+     * Creates and returns a robot based off of:
+     * robotName	- The type of robot to be created
+     * delivery		- The delivery used
+     * mailPool		- The shared mailPool for all robots
+     * 
+     */
+    public Robot createRobot(IMailDelivery delivery, IMailPool mailPool, String robotName) {
+    	switch (robotName) {
+    	case (BOT_WEAK):
+    		return new RobotWeak(delivery, mailPool);
+    	case (BOT_STRONG):
+    		return new RobotStrong(delivery, mailPool);
+    	case (BOT_BIG):
+    		return new RobotBig(delivery, mailPool);
+    	default:
+    		return null;
     	}
     }
 }
