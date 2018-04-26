@@ -25,3 +25,6 @@ mailgenerator now longer has any arguments. It gets mail to create and seed from
 
 made a step() function in automail so that simulation doesnt have to access automail.robot.step(), not is just automail.step(). robot and smulation are less coupled.
 
+added comments
+
+added support for robot array in automail. made various robot attributes public to make it work

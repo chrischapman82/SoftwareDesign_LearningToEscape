@@ -3,7 +3,6 @@ package strategies;
 import java.util.ArrayList;
 
 import automail.IMailDelivery;
-import automail.MailGenerator;
 import automail.PropertiesLoader;
 import automail.Robot;
 import automail.RobotBig;
@@ -32,13 +31,10 @@ public class Automail {
     	/** Initialize the MailPool */
     	mailPool = new WeakStrongMailPool();
     	
-
-    	
     	//initialise robots based on specifications in properties file
     	
     	robots.add(createRobot(delivery, mailPool, PropertiesLoader.getRobot1Type()));
     	robots.add(createRobot(delivery, mailPool, PropertiesLoader.getRobot2Type()));
-    	
     }
     
     
@@ -61,15 +57,21 @@ public class Automail {
     	}
     }
     
+    public void priorityArrival(int priorityLevel, int weight) {
+    	for (Robot r: robots) {
+    		r.behaviour.priorityArrival(priorityLevel, weight);
+    	}
+    }
     
     public void step() {
-    	try {
-			robots.get(0).step();
-			robots.get(1).step();
-		} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
-			e.printStackTrace();
-			System.out.println("Simulation unable to complete.");
-			System.exit(0);
-		}
-    }
+    	for(Robot r: robots) {
+    		try {
+				r.step();
+			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
+				e.printStackTrace();
+				System.out.println("Simulation unable to complete.");
+				System.exit(0);
+			}
+	    }
+	}
 }

@@ -22,26 +22,33 @@ public class Simulation {
 
         Automail automail = new Automail(new ReportDelivery());
         MailGenerator generator = new MailGenerator();
+        generator.generateAllMail();
         
         /** Initiate all the mail */
-        generator.generateAllMail();
         ArrayList<MailItem> mail;
         MAIL_DELIVERED = new ArrayList<MailItem>();
+        
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
-        	//System.out.println("-- Step: "+Clock.Time());
+        	//get all mail for the current time
             mail = generator.getMail();
-            if(mail != null) {
-	            for(MailItem m: mail) {
-	            	automail.mailPool.addToPool(m);
-	            	if (m instanceof PriorityMailItem) {
-	            		PriorityMailItem pmail = (PriorityMailItem) m;
-	            		automail.robots.get(0).behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
-	                	automail.robots.get(1).behaviour.priorityArrival(pmail.getPriorityLevel(), m.weight);
-	            	}
-	            }
+            //check if there is any mail to "arrive" at the current time;
+            if(mail == null) {
+            	//no mail so continue simulation
+            	automail.step();
+                Clock.Tick();
+                continue;
             }
+        	//do have new mail, add the mail to the pool
+            for(MailItem m: mail) {
+            	automail.mailPool.addToPool(m);
+            	//check for priority mail to send priority arrival alert to robots
+            	if (m instanceof PriorityMailItem) {
+            		PriorityMailItem pmail = (PriorityMailItem) m;
+                	automail.priorityArrival(pmail.getPriorityLevel(), m.weight);
+            	}
+            }
+            //continue simulation
             automail.step();
-
             Clock.Tick();
         }
         printResults();

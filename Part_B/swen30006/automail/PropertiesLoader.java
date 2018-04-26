@@ -14,24 +14,22 @@ public final class PropertiesLoader {
 	private static String robot2Type;
 	
 	public static void loadProperties() {
-		// Should probably be using properties here
+		// Properties allows usage of a properties file to set variiables
     	Properties automailProperties = new Properties();
 		
-		FileReader inStream = null;
-		
+    	//read from file
 		try {
+			FileReader inStream = null;
 			inStream = new FileReader("automail.Properties");
-			
 			automailProperties.load(inStream);
-			
 			if (inStream != null) {
                 inStream.close();
             }
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		//Seed, Number_of_Floors, Delivery_Penalty, Last_Delivery_Time, Mail_to_Create, Robot_Type_1, Robot_Type_2
+		
+		//list of variables set in properties file. further vars will need to be added manually.
 		timePenalty = Double.parseDouble(automailProperties.getProperty("Delivery_Penalty"));
 		mailToCreate = Integer.parseInt(automailProperties.getProperty("Mail_to_Create"));
 		seed = Integer.parseInt(automailProperties.getProperty("Seed"));
