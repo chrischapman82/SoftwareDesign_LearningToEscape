@@ -4,19 +4,18 @@ import java.util.*;
 
 import automail.Building;
 import automail.Clock;
-import automail.MailGenerator;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.StorageTube;
 import exceptions.TubeFullException;
 
-public class WeakStrongMailPool implements IMailPool{
+public class MyMailPool implements IMailPool{
 	private LinkedList<MailItem> upper;  // weak robot will take this set
 	private LinkedList<MailItem> lower;  // strong robot will take this set
 	private int divider;
 	private static final int MAX_WEIGHT = 2000;
     
-	public WeakStrongMailPool(){
+	public MyMailPool(){
 		// Start empty
 		upper = new LinkedList<MailItem>();
 		lower = new LinkedList<MailItem>();
