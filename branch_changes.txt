@@ -6,3 +6,22 @@ For now I've done some work on integrating properties file into the system. All 
 Final attributes in Simulation became non-final to make this work. I believe that is ok as there are no setters and the variable is private so it is effectively final to outside classes anyway. Of course, a developer with access to the Simulation class has the power to delete the final modifier even if I left it in.
 
 Building floors are not set because it is a final variable in another class. I believe the building class may be removed/changed so I've left that for later.
+
+
+
+
+Ok new change, I created a PropertiesLoader class. Since variables are private and there are only getters, it is immutable and since everything is static it can be acccessed everywhere without instantiation. 
+Replaced previous instances of variables with corresponding PropertiesLoader.get...() methods.
+
+Replaced hashmap seed with int value only. Seed existence can be chacked against null, no need for such a data structure.
+
+Renamed "strong" variable to "isStrong" in Robot
+
+Removed whatever method arguments that are given by Properties as they can be accessed directly now. Removing arguments is decreasing coupling.
+
+Removed variable "complete" (finished creating mail flag) in MailGenerator, adjusted other parts appropriately
+
+mailgenerator now longer has any arguments. It gets mail to create and seed from PropertiesLoader and instead of inputting mailitems directly to a mailpool it returns mail for the current clock time in getMail(). This has reduced its coupling with simulation since it doesnt rely on args from ouside anymore. Furthermore it does not need to store a mailpool as an attribute. Increased coupling with PropertiesLoader. 
+
+made a step() function in automail so that simulation doesnt have to access automail.robot.step(), not is just automail.step(). robot and smulation are less coupled.
+
