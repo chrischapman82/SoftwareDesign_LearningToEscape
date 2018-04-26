@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Simulation {
 	
-    private static ArrayList<MailItem> MAIL_DELIVERED;
+    private static ArrayList<MailItem> MAIL_DELIVERED = new ArrayList<MailItem>();
     private static double total_score = 0;
 
     public static void main(String[] args) { 
@@ -23,7 +23,6 @@ public class Simulation {
         
         /** Initiate all the mail */
         ArrayList<MailItem> mail;
-        MAIL_DELIVERED = new ArrayList<MailItem>();
         
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
         	//get all mail for the current time
