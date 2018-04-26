@@ -1,7 +1,6 @@
 package automail;
 
-import exceptions.ExcessiveDeliveryException;
-import exceptions.ItemTooHeavyException;
+
 import exceptions.MailAlreadyDeliveredException;
 import strategies.Automail;
 
@@ -13,20 +12,19 @@ import java.util.ArrayList;
  */
 public class Simulation {
 	
-    private static ArrayList<MailItem> MAIL_DELIVERED;
+    private static ArrayList<MailItem> MAIL_DELIVERED = new ArrayList<MailItem>();
     private static double total_score = 0;
 
-    public static void main(String[] args) { //throws IOException {
+    public static void main(String[] args) { 
+
     	PropertiesLoader.loadProperties();
     	System.out.println(Integer.toString(PropertiesLoader.getFloorsInBuilding()));
 
         Automail automail = new Automail(new ReportDelivery());
         MailGenerator generator = new MailGenerator();
-        generator.generateAllMail();
         
         /** Initiate all the mail */
         ArrayList<MailItem> mail;
-        MAIL_DELIVERED = new ArrayList<MailItem>();
         
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
         	//get all mail for the current time

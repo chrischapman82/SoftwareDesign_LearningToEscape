@@ -23,7 +23,6 @@ public class WeakStrongMailPool implements IMailPool{
 		divider = Building.FLOORS / 2;  // Top normal floor for strong robot
 		//mailGen = new MailGenerator();
 		//mailGen.generateAllMail();
-		
 	}
 
 	private int priority(MailItem m) {
