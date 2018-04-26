@@ -73,7 +73,8 @@ public class Simulation {
             }
             try {
             	
-            	// TODO Changed here to for all loop
+            	// Changed here to for all loop to allow for the use of an arraylist
+            	// and different numbers of robots
             	for (Robot robot : automail.robots) {
             		robot.step();
             	}
