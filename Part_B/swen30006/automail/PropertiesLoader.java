@@ -2,6 +2,7 @@ package automail;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public final class PropertiesLoader {
@@ -10,8 +11,8 @@ public final class PropertiesLoader {
 	private static int seed;
 	private static int maximumSimulationTime;
 	private static int floorsInBuilding;
-	private static String robot1Type;
-	private static String robot2Type;
+	
+	private static ArrayList<String> robotTypes;
 	
 	public static void loadProperties() {
 		// Should probably be using properties here
@@ -37,8 +38,21 @@ public final class PropertiesLoader {
 		seed = Integer.parseInt(automailProperties.getProperty("Seed"));
         maximumSimulationTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
         floorsInBuilding = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
-        robot1Type = automailProperties.getProperty("Robot_Type_1");
-        robot2Type = automailProperties.getProperty("Robot_Type_2");
+        
+        
+        parseRobotTypes(automailProperties);
+	}
+	
+	// helper method for reading in robotTypes
+	private static void parseRobotTypes(Properties automailProperties) {
+		robotTypes = new ArrayList<>();
+		
+		String robotType;
+        int i = 1;
+		while ((robotType = automailProperties.getProperty("Robot_Type_" + Integer.toString(i))) != null) {
+        	robotTypes.add(robotType);
+        	i++;
+        }
 	}
 
 	public static double getTimePenalty() {
@@ -60,12 +74,9 @@ public final class PropertiesLoader {
 	public static int getFloorsInBuilding() {
 		return floorsInBuilding;
 	}
-	public static String getRobot1Type() {
-		return robot1Type;
-	}
-
-	public static String getRobot2Type() {
-		return robot2Type;
+	
+	public static ArrayList<String> getRobotTypes() {
+		return robotTypes;
 	}
 
 }
