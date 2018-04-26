@@ -11,9 +11,9 @@ import strategies.MyRobotBehaviour;
  */
 public abstract class Robot {
 
-	StorageTube tube;
-    IRobotBehaviour behaviour;
-    IMailDelivery delivery;
+	public StorageTube tube;
+    public IRobotBehaviour behaviour;
+    public IMailDelivery delivery;
     protected final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }

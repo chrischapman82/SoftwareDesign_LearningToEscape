@@ -16,7 +16,6 @@ public class MailGenerator {
 
     private final Random random;
     
-    
     private HashMap<Integer,ArrayList<MailItem>> allMail;
 
     /**
@@ -30,7 +29,6 @@ public class MailGenerator {
     	// This seed is used to make the behaviour deterministic */
         if((PropertiesLoader.getSeed()) != null){
         	this.random = new Random((long) PropertiesLoader.getSeed());
-
         }
         else{
         	this.random = new Random();	
