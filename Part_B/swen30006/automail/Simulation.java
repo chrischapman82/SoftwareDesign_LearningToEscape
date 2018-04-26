@@ -12,11 +12,12 @@ import java.util.HashMap;
  * This class simulates the behaviour of AutoMail
  */
 public class Simulation {
-
+	
     private static ArrayList<MailItem> MAIL_DELIVERED;
     private static double total_score = 0;
 
     public static void main(String[] args) { //throws IOException {
+    	System.out.println("hello");
     	PropertiesLoader.loadProperties();
         /** Used to see whether a seed is initialized or not */
         HashMap<Boolean, Integer> seedMap = new HashMap<>();

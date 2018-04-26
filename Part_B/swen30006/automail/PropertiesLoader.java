@@ -20,7 +20,7 @@ public final class PropertiesLoader {
 		FileReader inStream = null;
 		
 		try {
-			inStream = new FileReader("automail.properties");
+			inStream = new FileReader("automail.Properties");
 			
 			automailProperties.load(inStream);
 			
