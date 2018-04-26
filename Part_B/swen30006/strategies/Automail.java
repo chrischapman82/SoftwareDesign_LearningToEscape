@@ -36,12 +36,6 @@ public class Automail {
     	
     	//initialise robots based on specifications in properties file
     	
-    	// i'd like to change to:
-    	/*for (String robotType : PropertiesLoader.getRobotTypes()) {
-    		
-    		behaviour = MyRobotBehaviour(robotType);
-    		robots.add(createRobot(behaviour, delivery, mailPool, robotType);
-    	}*/
     	
     	for (String robotType : PropertiesLoader.getRobotTypes()) {
     		robots.add(createRobot(delivery, mailPool, robotType));
