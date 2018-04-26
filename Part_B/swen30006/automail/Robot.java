@@ -36,12 +36,12 @@ public class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IMailDelivery delivery, IMailPool mailPool, boolean strong){
+    public Robot(IMailDelivery delivery, IMailPool mailPool, int tubeMaxCapacity, boolean strong){
     	id = "R" + hashCode();
         // current_state = RobotState.WAITING;
     	current_state = RobotState.RETURNING;
         current_floor = Building.MAILROOM_LOCATION;
-        tube = new StorageTube();
+        tube = new StorageTube(tubeMaxCapacity);
         this.behaviour = new MyRobotBehaviour(strong);
         this.delivery = delivery;
         this.mailPool = mailPool;
