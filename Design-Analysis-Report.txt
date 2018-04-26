@@ -2,16 +2,10 @@
 
 Design Criticisms:
 
-1. 
-In the provided package, Robot is a concrete class with weak and strong robots defined by a boolean attributes. This 
-is a poor design choice because it does not fascilitate polymorphism. We used a Robot constructor which takes a Robot
-type parameter in Automail because Automail aggregates and closely uses instances of Robot.
+1. In the provided package, Robot is a concrete class with weak and strong robots defined by a boolean attributes. This  is a poor design choice because it does not fascilitate polymorphism. We used a Robot constructor which takes a Robot type parameter in Automail because Automail aggregates and closely uses instances of Robot.
 
-2. MailGenerator contains a pointer to MailPool, which reduces cohesion and increases the representational gap for how
-the system should intuitively work. MailGenerator should intuitively do one thing: generate mail. The provided package requires
-simulation to call a method in MailGenerator to directly add the mail to MailPool and call the AddToPool method. 
-This reduces cohesion because it gives MailGenerator a responsibility it should not. Our solution to this is to de-couple 
-MailGenerator and MailPool so that MailGenerator only generates a HashMap of mail. Our system then employs the Simulation class
-to provide indirection by generating the time ordered mail set from MailGenerator and adding mail to MailPool Automail.
-This system reduces coupling because and allows for greater potnetial extendibility; for instance if we wanted a variable number of
-MailGenerators and MailPools we could do so.
+2. MailGenerator contains a pointer to MailPool, which reduces cohesion and increases the representational gap for how the system should intuitively work. MailGenerator should intuitively do one thing: generate mail. The provided package requires simulation to call a method in MailGenerator to directly add the mail to MailPool and call the AddToPool method. This reduces cohesion because it gives MailGenerator a responsibility it should not. Our solution to this is to de-couple MailGenerator and MailPool so that MailGenerator only generates a HashMap of mail. Our system then employs the Simulation class  to provide indirection by generating the time ordered mail set from MailGenerator and adding mail to MailPool Automail. This system reduces coupling because and allows for greater potnetial extendibility; for instance if we wanted a variable number of MailGenerators and MailPools we could do so.
+
+3. In the existing package, Simulation directly notifies each inidividual robot of a new priority arrival. This is poor cohesion for the following reasons: Simulation should be about stepping the main system components through in time order fashion and recording the results. Each robot is a member of an Automail System which has robots and a mail-pool, and it is the responsibility of the mail pool to notify robots of new arrivals, fill their storage tubes etc. It also has high coupling because it means if we want to add more robots we need to update the simulation code. Our solution fixes this by using a function within Automail which notifies all robots of priority arriavls, regardless of how many there are. We decided to put this function in Automail, because Automail is the system which agregates robots and the MailPool. Therefore simulation only calls one function, addIncomingMail, and autommail notifies robots of priority items and adds mail to mailPool.
+
+4. 
