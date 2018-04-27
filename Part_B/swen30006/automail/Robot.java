@@ -86,7 +86,7 @@ public abstract class Robot {
     			boolean wantToReturn = behaviour.returnToMailRoom(tube);
     			if(current_floor == destination_floor){ // If already here drop off either way
                     /** Delivery complete, report this to the simulator! */
-                    ReportDelivery.getReportDelivery().deliver(deliveryItem);
+                    Simulation.deliver(deliveryItem);
                     deliveryCounter++;
                     if(deliveryCounter > 4){
                     	throw new ExcessiveDeliveryException();

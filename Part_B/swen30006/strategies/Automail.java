@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import automail.IMailDelivery;
 import automail.PropertiesLoader;
-import automail.ReportDelivery;
 import automail.Robot;
 import automail.RobotBig;
 import automail.RobotStrong;

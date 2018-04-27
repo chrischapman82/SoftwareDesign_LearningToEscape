@@ -13,12 +13,11 @@ import java.util.ArrayList;
 public class Simulation {
 	
     private static ArrayList<MailItem> MAIL_DELIVERED = new ArrayList<MailItem>();
-   // private static double total_score = 0;
+    private static double total_score = 0;
 
     public static void main(String[] args) { 
 
     	PropertiesLoader.loadProperties();
-    	ReportDelivery.getReportDelivery().attachMaildelivered(MAIL_DELIVERED);
         Automail automail = new Automail();
         MailGenerator generator = new MailGenerator();
         
@@ -37,27 +36,25 @@ public class Simulation {
             automail.step();
             Clock.Tick();
         }
-        ReportDelivery.getReportDelivery().printResults();
+        printResults();
     }
-    /*
-    static class ReportDelivery implements IMailDelivery {
-    	// Confirm the delivery and calculate the total score 
-    	public void deliver(MailItem deliveryItem){
-    		if(!MAIL_DELIVERED.contains(deliveryItem)){
-                System.out.printf("T: %3d > Delivered     [%s]%n", Clock.Time(), deliveryItem.toString());
-    			MAIL_DELIVERED.add(deliveryItem);
-    			// Calculate delivery score
-    			total_score += calculateDeliveryScore(deliveryItem);
-    		}
-    		else{
-    			try {
-    				throw new MailAlreadyDeliveredException();
-    			} catch (MailAlreadyDeliveredException e) {
-    				e.printStackTrace();
-    			}
-    		}
-    	}
-    }
+    
+	public static void deliver(MailItem deliveryItem){
+		if(!MAIL_DELIVERED.contains(deliveryItem)){
+            System.out.printf("T: %3d > Delivered     [%s]%n", Clock.Time(), deliveryItem.toString());
+			MAIL_DELIVERED.add(deliveryItem);
+			// Calculate delivery score
+			total_score += calculateDeliveryScore(deliveryItem);
+		}
+		else{
+			try {
+				throw new MailAlreadyDeliveredException();
+			} catch (MailAlreadyDeliveredException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
     
     private static double calculateDeliveryScore(MailItem deliveryItem) {
     	// Penalty for longer delivery times
@@ -74,5 +71,5 @@ public class Simulation {
         System.out.println("Final Delivery time: "+Clock.Time());
         System.out.printf("Final Score: %.2f%n", total_score);
     }
-    */
+    
 }
