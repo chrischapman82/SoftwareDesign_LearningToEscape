@@ -2,6 +2,7 @@ package automail;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public final class PropertiesLoader {
@@ -10,8 +11,7 @@ public final class PropertiesLoader {
 	private static Integer seed;
 	private static Integer lastDeliveryTime;
 	private static Integer floorsInBuilding;
-	private static String robot1Type;
-	private static String robot2Type;
+	private static ArrayList<String> robotTypes;
 	
 	public static void loadProperties() {
 		// Properties allows usage of a properties file to set variiables
@@ -35,8 +35,19 @@ public final class PropertiesLoader {
 		seed = Integer.parseInt(automailProperties.getProperty("Seed"));
         lastDeliveryTime = Integer.parseInt(automailProperties.getProperty("Last_Delivery_Time"));
         floorsInBuilding = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
-        robot1Type = automailProperties.getProperty("Robot_Type_1");
-        robot2Type = automailProperties.getProperty("Robot_Type_2");
+        String robotType;
+        
+        int i = 1;
+        
+        
+        robotTypes = new ArrayList<>();
+        
+        // adding in the robot types
+        // Only takes in the form Robot_Type_i  as given
+        while ((robotType = automailProperties.getProperty("Robot_Type_" + Integer.toString(i))) != null) {
+        	robotTypes.add(robotType);
+        	i++;
+        }
 	}
 
 	public static Double getTimePenalty() {
@@ -58,12 +69,10 @@ public final class PropertiesLoader {
 	public static Integer getFloorsInBuilding() {
 		return floorsInBuilding;
 	}
-	public static String getRobot1Type() {
-		return robot1Type;
-	}
-
-	public static String getRobot2Type() {
-		return robot2Type;
+	
+	
+	public static ArrayList<String> getRobotTypes() {
+		return robotTypes;
 	}
 
 }

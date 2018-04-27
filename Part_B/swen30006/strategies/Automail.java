@@ -30,6 +30,9 @@ public class Automail {
     	
     	/** Initialize the MailPool */
     	mailPool = new WeakStrongMailPool();
+
+    	/*
+
     	
     	String robot1Type = PropertiesLoader.getRobot1Type();
     	String robot2Type = PropertiesLoader.getRobot2Type();
@@ -37,11 +40,17 @@ public class Automail {
     	if(robot1Type == BOT_WEAK && robot2Type == BOT_WEAK) {
     		System.err.println("Two weak robots is too weak");
     		System.exit(0);
+
+
+    	}*/
+    	//initialise robots based on specifications in properties file
+    	
+    	
+    	for (String robotType : PropertiesLoader.getRobotTypes()) {
+    		robots.add(createRobot(delivery, mailPool, robotType));
     	}
     	
-    	//create robots
-    	robots.add(createRobot(delivery, mailPool, robot1Type));
-    	robots.add(createRobot(delivery, mailPool, robot2Type));
+
     }
     
     
