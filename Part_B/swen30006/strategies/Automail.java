@@ -18,7 +18,7 @@ public class Automail {
     public ArrayList<Robot> robots;
     public MasterPool masterPool;
     
-    
+  
     // TODO I am unsure about whether this is the right place to put these...
     public static final String BOT_WEAK = "weak";
     public static final String BOT_STRONG = "strong";

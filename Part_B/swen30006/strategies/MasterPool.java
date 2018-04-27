@@ -7,7 +7,10 @@ import automail.Building;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.Robot;
-import strategies.IMailPool;
+import automail.RobotBig;
+import automail.RobotStrong;
+import automail.RobotWeak;
+import strategies.*;
 
 public class MasterPool implements IMasterPool {
 
@@ -16,6 +19,7 @@ public class MasterPool implements IMasterPool {
 	private static final int NUM_POOLS = 2;
 	private static final int MAX_WEIGHT = 2000;
 	private int divider;
+	private ArrayList<Robot> robots;
 	
 	private IMailPool upperPool;
 	private IMailPool lowerPool;
@@ -24,15 +28,35 @@ public class MasterPool implements IMasterPool {
 		
 		divider = Building.FLOORS / 2;
 		
-		assert(robots.size() == NUM_ROBOTS);
-		
-		// construct upper pool and give it to robot 1
 		upperPool = new UpperPool();
-		robots.get(0).setMailPool(upperPool);
-		
-		// construct lower pool and give it to robot 2
 		lowerPool = new LowerPool();
-		robots.get(1).setMailPool(lowerPool);
+		
+		this.robots = robots;
+		
+		// confirm correct number and type of robots
+		assert(robots.size() == NUM_ROBOTS);
+		if(!(robots.get(0) instanceof RobotWeak && robots.get(1) instanceof RobotWeak)) {
+			System.out.println("Invalid configuration");
+		}
+		
+		// assign robots to pools based on types of robots
+		if(robots.get(0) instanceof RobotWeak) {
+			robots.get(0).setMailPool(upperPool);
+			robots.get(1).setMailPool(lowerPool);
+		}
+		else if(robots.get(1) instanceof RobotWeak) {
+			robots.get(1).setMailPool(upperPool);
+			robots.get(0).setMailPool(lowerPool);
+		}
+		else if(robots.get(0) instanceof RobotBig && robots.get(1) instanceof RobotStrong) {
+			robots.get(0).setMailPool(upperPool);
+			robots.get(1).setMailPool(lowerPool);
+		}
+		else if(robots.get(1) instanceof RobotBig && robots.get(0) instanceof RobotStrong) {
+			robots.get(1).setMailPool(upperPool);
+			robots.get(0).setMailPool(lowerPool);
+		}
+		
 	}
 	
 	public void distributeMail(MailItem mailItem) {
