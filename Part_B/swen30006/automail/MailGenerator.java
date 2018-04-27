@@ -10,7 +10,7 @@ import strategies.IMailPool;
  */
 public class MailGenerator {
 
-    public final int MAIL_TO_CREATE;
+    public final int MAIL_AMOUNT;
 
     private int mailCreated;
 
@@ -35,7 +35,7 @@ public class MailGenerator {
         }
         // Vary arriving mail by +/-20%
         int mailToCreate = PropertiesLoader.getMailToCreate();
-        MAIL_TO_CREATE = mailToCreate*4/5 + random.nextInt(mailToCreate*2/5);
+        MAIL_AMOUNT = mailToCreate*4/5 + random.nextInt(mailToCreate*2/5);
         
         mailCreated = 0;
         allMail = new HashMap<Integer,ArrayList<MailItem>>();
@@ -66,7 +66,7 @@ public class MailGenerator {
      * This class initializes all mail and sets their corresponding values,
      */
     public void generateAllMail(){
-        while(!(mailCreated == MAIL_TO_CREATE)){
+        while(!(mailCreated == MAIL_AMOUNT)){
             MailItem newMail =  generateMail();
             int timeToDeliver = newMail.getArrivalTime();
             /** Check if key exists for this time **/

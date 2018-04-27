@@ -37,13 +37,10 @@ public final class PropertiesLoader {
         floorsInBuilding = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
         String robotType;
         
-        int i = 1;
-        
-        
-        robotTypes = new ArrayList<>();
-        
         // adding in the robot types
         // Only takes in the form Robot_Type_i  as given
+        int i = 1;
+        robotTypes = new ArrayList<>();
         while ((robotType = automailProperties.getProperty("Robot_Type_" + Integer.toString(i))) != null) {
         	robotTypes.add(robotType);
         	i++;

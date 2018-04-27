@@ -25,18 +25,14 @@ public class Simulation {
         /** Initiate all the mail */
         ArrayList<MailItem> mail;
         
-        while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
+        while(MAIL_DELIVERED.size() != generator.MAIL_AMOUNT) {
         	//get all mail for the current time
             mail = generator.getMail();
             //check if there is any mail to "arrive" at the current time;
-            if(mail == null) {
-            	//no mail so continue simulation
-            	automail.step();
-                Clock.Tick();
-                continue;
+            if(mail != null) {
+            	//do have new mail, add the mail to the pool
+            	automail.addIncomingMail(mail);
             }
-        	//do have new mail, add the mail to the pool
-            automail.addIncomingMail(mail);
             //continue simulation
             automail.step();
             Clock.Tick();
