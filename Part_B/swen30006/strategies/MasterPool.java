@@ -35,7 +35,7 @@ public class MasterPool implements IMasterPool {
 		
 		// confirm correct number and type of robots
 		assert(robots.size() == NUM_ROBOTS);
-		if(!(robots.get(0) instanceof RobotWeak && robots.get(1) instanceof RobotWeak)) {
+		if(robots.get(0) instanceof RobotWeak && robots.get(1) instanceof RobotWeak) {
 			System.out.println("Invalid configuration");
 		}
 		

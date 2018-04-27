@@ -30,7 +30,7 @@ public class LowerPool implements IMailPool {
 				// if both are priority items, compare priority levels and then arrival time
 				else if((item2 instanceof PriorityMailItem) && (item1 instanceof PriorityMailItem)) {
 					if(((PriorityMailItem)item2).getPriorityLevel() == ((PriorityMailItem)item1).getPriorityLevel()) {
-						return item1.getArrivalTime() - item2.getArrivalTime();
+						return 0;
 					}
 					else {
 						return ((PriorityMailItem)item2).getPriorityLevel() - ((PriorityMailItem)item1).getPriorityLevel();
@@ -38,7 +38,7 @@ public class LowerPool implements IMailPool {
 				}
 				else {
 					// else if both are normal items, compare by arrival time
-					return item1.getArrivalTime() - item2.getArrivalTime();	
+					return 0;	
 				}
 					
 			}

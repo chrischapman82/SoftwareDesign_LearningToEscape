@@ -1,18 +1,49 @@
 package strategies;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 import automail.Clock;
 import automail.MailItem;
+import automail.PriorityMailItem;
 import automail.StorageTube;
 import exceptions.TubeFullException;
 
 public class UpperPool implements IMailPool {
 
-	private ArrayList<MailItem> mailItems; 
+	private PriorityQueue<MailItem> mailItems; 
 	
 	public UpperPool() {
-		mailItems = new ArrayList<MailItem>();
+		mailItems = new PriorityQueue<MailItem>(100, new Comparator<MailItem>() {
+			
+			public int compare(MailItem item1, MailItem item2) {	
+				
+				// we must explicitly test different type cases due to casting
+				// if one is a priority and the other is a normal mail item, order accordingly 
+				if((item2 instanceof PriorityMailItem) && !(item1 instanceof PriorityMailItem)){
+					return 1;
+				}
+				else if(!(item2 instanceof PriorityMailItem) && (item1 instanceof PriorityMailItem)){
+					return -1;
+				}
+				
+				// if both are priority items, compare priority levels and then arrival time
+				else if((item2 instanceof PriorityMailItem) && (item1 instanceof PriorityMailItem)) {
+					if(((PriorityMailItem)item2).getPriorityLevel() == ((PriorityMailItem)item1).getPriorityLevel()) {
+						return 0;
+					}
+					else {
+						return ((PriorityMailItem)item2).getPriorityLevel() - ((PriorityMailItem)item1).getPriorityLevel();
+					}
+				}
+				else {
+					// else if both are normal items, compare by arrival time
+					return 0;	
+				}
+					
+			}
+		});
 	}
 	
 	@Override
@@ -28,7 +59,7 @@ public class UpperPool implements IMailPool {
 		}
 		while(!tube.isFull() && !mailItems.isEmpty()) {
 			try {
-				tube.addItem(mailItems.remove(0));
+				tube.addItem(mailItems.poll());
 			} catch (TubeFullException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
