@@ -28,8 +28,8 @@ public class MasterPool implements IMasterPool {
 		
 		divider = Building.FLOORS / 2;
 		
-		upperPool = new UpperPool();
-		lowerPool = new LowerPool();
+		upperPool = new SubPool();
+		lowerPool = new SubPool();
 		
 		this.robots = robots;
 		

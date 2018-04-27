@@ -1,10 +1,6 @@
 package strategies;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 import automail.Clock;
 import automail.MailItem;
@@ -12,18 +8,32 @@ import automail.PriorityMailItem;
 import automail.StorageTube;
 import exceptions.TubeFullException;
 
-public class UpperPool implements IMailPool {
-
-private LinkedList<MailItem> mailItems; 
+public class SubPool implements IMailPool {
 	
-	public UpperPool() {
-			
+	private LinkedList<MailItem> mailItems; 
+	
+	public SubPool() {
 		mailItems = new LinkedList<MailItem>();
+	}
+	
+	private int priority(MailItem m) {
+		return (m instanceof PriorityMailItem) ? ((PriorityMailItem) m).getPriorityLevel() : 0;
 	}
 	
 	@Override
 	public void addToPool(MailItem mailItem) {
 		System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
+		if (mailItem instanceof PriorityMailItem) {  // Add in priority order
+			int priority = ((PriorityMailItem) mailItem).getPriorityLevel();
+			ListIterator<MailItem> i = mailItems.listIterator();
+			while (i.hasNext()) {
+				if (priority(i.next()) < priority) {
+					i.previous();
+					i.add(mailItem);
+					return; // Added it - done
+				}
+			}
+		}
 		mailItems.addLast(mailItem);
 	}
 
