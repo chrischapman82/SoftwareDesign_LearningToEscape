@@ -10,18 +10,10 @@ import exceptions.TubeFullException;
 
 public class LowerPool implements IMailPool {
 	
-	private PriorityQueue<MailItem> mailItems; 
+	private LinkedList<MailItem> mailItems; 
 	
 	public LowerPool() {
-			
-		mailItems = new PriorityQueue<MailItem>(100, new Comparator<MailItem>() {
-			
-			public int compare(MailItem item1, MailItem item2) {	
-				
-				return priority(item2) - priority(item1);
-					
-			}
-		});
+		mailItems = new LinkedList<MailItem>();
 	}
 	
 	private int priority(MailItem m) {
@@ -31,21 +23,30 @@ public class LowerPool implements IMailPool {
 	@Override
 	public void addToPool(MailItem mailItem) {
 		System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
-		mailItems.add(mailItem);
+		if (mailItem instanceof PriorityMailItem) {  // Add in priority order
+			int priority = ((PriorityMailItem) mailItem).getPriorityLevel();
+			ListIterator<MailItem> i = mailItems.listIterator();
+			while (i.hasNext()) {
+				if (priority(i.next()) < priority) {
+					i.previous();
+					i.add(mailItem);
+					return; // Added it - done
+				}
+			}
+		}
+		mailItems.addLast(mailItem);
 	}
 
 	@Override
 	public void fillStorageTube(StorageTube tube, boolean strong) {
-		while(!tube.isEmpty()) {
-			addToPool(tube.pop());
-		}
-		while(!tube.isFull() && !mailItems.isEmpty()) {
-			try {
-				tube.addItem(mailItems.poll());
-			} catch (TubeFullException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		Queue<MailItem> q = mailItems;
+		try{
+			while(!tube.isFull() && !q.isEmpty()) {
+				tube.addItem(q.remove());  // Could group/order by floor taking priority into account - but already better than simple
 			}
+		}
+		catch(TubeFullException e){
+			e.printStackTrace();
 		}
 	}
 
