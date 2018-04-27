@@ -36,16 +36,20 @@ public abstract class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IMailPool mailPool, boolean strong, int tubeCapacity){
+    public Robot( boolean strong, int tubeCapacity){
+
     	id = "R" + hashCode();
         // current_state = RobotState.WAITING;
     	current_state = RobotState.RETURNING;
         current_floor = Building.MAILROOM_LOCATION;
         this.tube = new StorageTube(tubeCapacity);
         this.behaviour = new MyRobotBehaviour(strong);
-        this.mailPool = mailPool;
         this.isStrong = strong;
         this.deliveryCounter = 0;
+    }
+    
+    public void setMailPool(IMailPool mailPool) {
+    	this.mailPool = mailPool;
     }
 
     /**
@@ -88,7 +92,7 @@ public abstract class Robot {
                     /** Delivery complete, report this to the simulator! */
                     Simulation.deliver(deliveryItem);
                     deliveryCounter++;
-                    if(deliveryCounter > 4){
+                    if(deliveryCounter > tube.capacity){
                     	throw new ExcessiveDeliveryException();
                     }
                     /** Check if want to return or if there are more items in the tube*/
