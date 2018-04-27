@@ -56,17 +56,31 @@ public class MasterPool implements IMasterPool {
 			robots.get(1).setMailPool(upperPool);
 			robots.get(0).setMailPool(lowerPool);
 		}
+		else {
+			robots.get(0).setMailPool(upperPool);
+			robots.get(1).setMailPool(lowerPool);
+		}
 		
 	}
 	
 	public void distributeMail(MailItem mailItem) {
 		
-		// if it's a priority or heavy or upper floor
-		if (mailItem instanceof PriorityMailItem || mailItem.getWeight() > MAX_WEIGHT || mailItem.getDestFloor() <= divider) {
-			lowerPool.addToPool(mailItem); // Just add it on the end of the lower (strong robot) list
+		if(robots.get(0) instanceof RobotWeak || robots.get(1) instanceof RobotWeak) {
+			// if it's a priority or heavy or upper floor
+			if (mailItem instanceof PriorityMailItem || mailItem.getWeight() > MAX_WEIGHT || mailItem.getDestFloor() <= divider) {
+				lowerPool.addToPool(mailItem); // Just add it on the end of the lower (strong robot) list
+			}
+			else{
+				upperPool.addToPool(mailItem); // Just add it on the end of the upper (weak robot) list
+			}
 		}
-		else{
-			upperPool.addToPool(mailItem); // Just add it on the end of the upper (weak robot) list
+		else {
+			if (mailItem instanceof PriorityMailItem || mailItem.getDestFloor() <= divider) {
+				lowerPool.addToPool(mailItem); // Just add it on the end of the lower (strong robot) list
+			}
+			else{
+				upperPool.addToPool(mailItem); // Just add it on the end of the upper (weak robot) list
+			}
 		}
 	}
 	
