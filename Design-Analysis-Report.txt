@@ -24,4 +24,10 @@ notifies all robots of priority arriavls, regardless of how many there are. We d
 Automail is the system which agregates robots and the MailPool. Therefore simulation only calls one function, addIncomingMail, and 
 autommail notifies robots of priority items and adds mail to mailPool.
 
-4. 
+4. The existing package uses two seperate linked lists to handle the allocation of mail to the two robots in WeakStrongMailPool.
+Given the need to let different robots handle different mutually exclusive sets of mail, the potential for those sets to be
+ordered differently, and the numerous combinations of robot type (weak and strong, big and strong, strong and strong etc.) it is a
+poor design for its lack of extendibility (for instance it is not easy to extend this system to work for part 3). Because the two
+linked lists are essentially seperate mail pools we decided to employ two levels of control as interfaces and implemented classes
+(pure fabrication); IMasterPool and MasterPool which decides which pool mail is initially sent to and which robot is assigned to
+which pool, and an implementation of IMailPool called SubPool which holds the mail.
