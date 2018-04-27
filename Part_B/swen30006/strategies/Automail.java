@@ -16,7 +16,7 @@ import exceptions.ItemTooHeavyException;
 public class Automail {
 	
     public ArrayList<Robot> robots;
-    public IMailPool mailPool;
+    public MasterPool masterPool;
     
     
     // TODO I am unsure about whether this is the right place to put these...
@@ -26,26 +26,23 @@ public class Automail {
     
     public Automail(IMailDelivery delivery) {
     	// Swap between simple provided strategies and your strategies here
-    	    	
     	// Initialise the robots arraylist
-    	robots = new ArrayList<>();
+    	robots = new ArrayList<Robot>();
     	
-    	/** Initialize the MailPool */
-    	mailPool = new WeakStrongMailPool();
-    	/*
-    	
-    	String robot1Type = PropertiesLoader.getRobot1Type();
+    	/*String robot1Type = PropertiesLoader.getRobot1Type();
     	String robot2Type = PropertiesLoader.getRobot2Type();
     	if(robot1Type == BOT_WEAK && robot2Type == BOT_WEAK) {
     		System.err.println("Two weak robots is too weak");
     		System.exit(0);
     	}*/
+    	
     	//initialise robots based on specifications in properties file
-    	
-    	
     	for (String robotType : PropertiesLoader.getRobotTypes()) {
-    		robots.add(createRobot(delivery, mailPool, robotType));
+    		robots.add(createRobot(delivery, robotType));
     	}
+    	
+    	/** Initialize the MailPool */
+    	masterPool = new MasterPool(robots);
     	
     }
     
@@ -56,14 +53,14 @@ public class Automail {
      * delivery		- The delivery used
      * mailPool		- The shared mailPool for all robots
      */
-    public Robot createRobot(IMailDelivery delivery, IMailPool mailPool, String robotName) {
+    public Robot createRobot(IMailDelivery delivery, String robotName) {
     	switch (robotName) {
     	case (BOT_WEAK):
-    		return new RobotWeak(delivery, mailPool);
+    		return new RobotWeak(delivery);
     	case (BOT_STRONG):
-    		return new RobotStrong(delivery, mailPool);
+    		return new RobotStrong(delivery);
     	case (BOT_BIG):
-    		return new RobotBig(delivery, mailPool);
+    		return new RobotBig(delivery);
     	default:
     		return null;
     	}
@@ -73,7 +70,7 @@ public class Automail {
     public void addIncomingMail(ArrayList<MailItem> mail) {
     	// add the mail to the pool
         for(MailItem m: mail) {
-        	mailPool.addToPool(m);
+        	masterPool.distributeMail(m);
         	//check for priority mail to send priority arrival alert to robots
         	if (m instanceof PriorityMailItem) {
         		PriorityMailItem pmail = (PriorityMailItem) m;
