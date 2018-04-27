@@ -2,14 +2,7 @@ package strategies;
 
 import java.util.ArrayList;
 
-import automail.IMailDelivery;
-import automail.PropertiesLoader;
-import automail.Robot;
-import automail.RobotBig;
-import automail.RobotStrong;
-import automail.RobotWeak;
-import automail.MailItem;
-import automail.PriorityMailItem;
+import automail.*;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 

@@ -18,31 +18,14 @@ public class LowerPool implements IMailPool {
 			
 			public int compare(MailItem item1, MailItem item2) {	
 				
-				// we must explicitly test different type cases due to casting
-				// if one is a priority and the other is a normal mail item, order accordingly 
-				if((item2 instanceof PriorityMailItem) && !(item1 instanceof PriorityMailItem)){
-					return 1;
-				}
-				else if(!(item2 instanceof PriorityMailItem) && (item1 instanceof PriorityMailItem)){
-					return -1;
-				}
-				
-				// if both are priority items, compare priority levels and then arrival time
-				else if((item2 instanceof PriorityMailItem) && (item1 instanceof PriorityMailItem)) {
-					if(((PriorityMailItem)item2).getPriorityLevel() == ((PriorityMailItem)item1).getPriorityLevel()) {
-						return 0;
-					}
-					else {
-						return ((PriorityMailItem)item2).getPriorityLevel() - ((PriorityMailItem)item1).getPriorityLevel();
-					}
-				}
-				else {
-					// else if both are normal items, compare by arrival time
-					return 0;	
-				}
+				return priority(item2) - priority(item1);
 					
 			}
 		});
+	}
+	
+	private int priority(MailItem m) {
+		return (m instanceof PriorityMailItem) ? ((PriorityMailItem) m).getPriorityLevel() : 0;
 	}
 	
 	@Override
