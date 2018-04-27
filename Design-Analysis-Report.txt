@@ -1,11 +1,22 @@
-
 // the 1500 word part of the assignment. to be exported as pdf and included in the final submission
 
 Design Criticisms:
 
-1. In the provided package, Robot is a concrete class with weak and strong robots defined by a boolean attributes. This  is a poor 
-design choice because it does not fascilitate polymorphism. Future additions of different types of robots will require change in identification type since boolean can only do two (strong, weak). Variations in maximum grasping weight or maximum MailItems possible to carry require minor to significant changes in classes such as WeakStrongMailPool, Robot, StorageTube. We used a Robot constructor which takes a Robot type parameter in 
-Automail because Automail aggregates and closely uses instances of Robot. 
+
+Polymoprhism:
+Reduced reuse of code
+Lower representation gap
+Classses are in charge of specific creation
+
+In the provided package, Robot differentiates between different types of robots with the strong attribute. While it works reasonably well
+for the initial two robots, it makes extension to the types of robots difficult. We proprosed using polymorphism, delegating
+initialisation and pertinent information about types of robots to , of 
+
+
+
+1. In the provided package, Robot is a concrete class with weak and strong robots defined by a boolean attributes. This is a poor 
+design choice because it does not fascilitate polymorphism. We used a Robot constructor which takes a Robot type parameter in 
+Automail because Automail aggregates and closely uses instances of Robot.
 
 2. MailGenerator contains a pointer to MailPool, which reduces cohesion and increases the representational gap for how the system 
 should intuitively work. MailGenerator should intuitively do one thing: generate mail. The provided package requires simulation to 
@@ -25,11 +36,4 @@ notifies all robots of priority arriavls, regardless of how many there are. We d
 Automail is the system which agregates robots and the MailPool. Therefore simulation only calls one function, addIncomingMail, and 
 autommail notifies robots of priority items and adds mail to mailPool.
 
-4. The existing package uses two seperate linked lists to handle the allocation of mail to the two robots in WeakStrongMailPool.
-Given the need to let different robots handle different mutually exclusive sets of mail, the potential for those sets to be
-ordered differently, and the numerous combinations of robot type (weak and strong, big and strong, strong and strong etc.) it is a
-poor design for its lack of extendibility (for instance it is not easy to extend this system to work for part 3). Because the two
-linked lists are essentially seperate mail pools we decided to employ two levels of control as interfaces and implemented classes
-(pure fabrication); IMasterPool and MasterPool which decides which pool mail is initially sent to and which robot is assigned to
-which pool, and an implementation of IMailPool called SubPool which holds the mail.
-
+4. 
