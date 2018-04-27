@@ -2,8 +2,6 @@ package automail;
 
 import java.util.*;
 
-import strategies.IMailPool;
-
 /**
  * This class generates the mail.
  * Constants in this class are based on observations of typical mail arrivals
@@ -24,7 +22,6 @@ public class MailGenerator {
      * @param mailPool where mail items go on arrival
      * @param seed random seed for generating mail
      */
-
     public MailGenerator(){
     	// This seed is used to make the behaviour deterministic */
         if((PropertiesLoader.getSeed()) != null){

@@ -3,14 +3,14 @@
 Design Criticisms:
 
 1. In the provided package, Robot is a concrete class with weak and strong robots defined by a boolean attributes. This  is a poor 
-design choice because it does not fascilitate polymorphism. We used a Robot constructor which takes a Robot type parameter in 
-Automail because Automail aggregates and closely uses instances of Robot.
+design choice because it does not fascilitate polymorphism. Future additions of different types of robots will require change in identification type since boolean can only do two (strong, weak). Variations in maximum grasping weight or maximum MailItems possible to carry require minor to significant changes in classes such as WeakStrongMailPool, Robot, StorageTube. We used a Robot constructor which takes a Robot type parameter in 
+Automail because Automail aggregates and closely uses instances of Robot. 
 
-2. MailGenerator contains a pointer to MailPool, which reduces cohesion and increases the representational gap for how the system 
+2. MailGenerator contains a reference to MailPool, which reduces cohesion and increases the representational gap for how the system 
 should intuitively work. MailGenerator should intuitively do one thing: generate mail. The provided package requires simulation to 
 call a method in MailGenerator to directly add the mail to MailPool and call the AddToPool method. This reduces cohesion because it 
 gives MailGenerator a responsibility it should not. Our solution to this is to de-couple MailGenerator and MailPool so that 
-MailGenerator only generates a HashMap of mail. Our system then employs the Simulation class  to provide indirection by generating 
+MailGenerator only generates a HashMap of MailItems. Our system then employs the Simulation class  to provide indirection by generating 
 the time ordered mail set from MailGenerator and adding mail to MailPool Automail. This system reduces coupling because and allows 
 for greater potnetial extendibility; for instance if we wanted a variable number of MailGenerators and MailPools we could do so.
 

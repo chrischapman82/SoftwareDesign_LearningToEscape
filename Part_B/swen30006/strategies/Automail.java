@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import automail.IMailDelivery;
 import automail.PropertiesLoader;
+import automail.ReportDelivery;
 import automail.Robot;
 import automail.RobotBig;
 import automail.RobotStrong;
@@ -18,19 +19,18 @@ public class Automail {
     public ArrayList<Robot> robots;
     public IMailPool mailPool;
     
-    // TODO I am unsure about whether this is the right place to put these...
+    // I am unsure about whether this is the right place to put these...
     public static final String BOT_WEAK = "weak";
     public static final String BOT_STRONG = "strong";
     public static final String BOT_BIG = "big";
     
-    public Automail(IMailDelivery delivery) {
+    public Automail() {
     	    	
     	// Initialise the robots arraylist
     	robots = new ArrayList<>();
     	
     	/** Initialize the MailPool */
     	mailPool = new WeakStrongMailPool();
-
     	/*
     	String robot1Type = PropertiesLoader.getRobot1Type();
     	String robot2Type = PropertiesLoader.getRobot2Type();
@@ -39,16 +39,12 @@ public class Automail {
     		System.err.println("Two weak robots is too weak");
     		System.exit(0);
     	}*/
-    	//initialise robots based on specifications in properties file
     	
-    	
+    	//initialise robots based on specifications in properties file   	
     	for (String robotType : PropertiesLoader.getRobotTypes()) {
-    		robots.add(createRobot(delivery, mailPool, robotType));
+    		robots.add(createRobot(mailPool, robotType));
     	}
-    	
-
     }
-    
     
     /* 
      * Creates and returns a robot based off of:
@@ -56,14 +52,14 @@ public class Automail {
      * delivery		- The delivery used
      * mailPool		- The shared mailPool for all robots
      */
-    public Robot createRobot(IMailDelivery delivery, IMailPool mailPool, String robotName) {
+    public Robot createRobot(IMailPool mailPool, String robotName) {
     	switch (robotName) {
     	case (BOT_WEAK):
-    		return new RobotWeak(delivery, mailPool);
+    		return new RobotWeak(mailPool);
     	case (BOT_STRONG):
-    		return new RobotStrong(delivery, mailPool);
+    		return new RobotStrong(mailPool);
     	case (BOT_BIG):
-    		return new RobotBig(delivery, mailPool);
+    		return new RobotBig(mailPool);
     	default:
     		return null;
     	}

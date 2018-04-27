@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class Simulation {
 	
     private static ArrayList<MailItem> MAIL_DELIVERED = new ArrayList<MailItem>();
-    private static double total_score = 0;
+   // private static double total_score = 0;
 
     public static void main(String[] args) { 
 
     	PropertiesLoader.loadProperties();
-
-        Automail automail = new Automail(new ReportDelivery());
+    	ReportDelivery.getReportDelivery().attachMaildelivered(MAIL_DELIVERED);
+        Automail automail = new Automail();
         MailGenerator generator = new MailGenerator();
         
         /** Initiate all the mail */
@@ -37,11 +37,11 @@ public class Simulation {
             automail.step();
             Clock.Tick();
         }
-        printResults();
+        ReportDelivery.getReportDelivery().printResults();
     }
-    
+    /*
     static class ReportDelivery implements IMailDelivery {
-    	/** Confirm the delivery and calculate the total score */
+    	// Confirm the delivery and calculate the total score 
     	public void deliver(MailItem deliveryItem){
     		if(!MAIL_DELIVERED.contains(deliveryItem)){
                 System.out.printf("T: %3d > Delivered     [%s]%n", Clock.Time(), deliveryItem.toString());
@@ -74,4 +74,5 @@ public class Simulation {
         System.out.println("Final Delivery time: "+Clock.Time());
         System.out.printf("Final Score: %.2f%n", total_score);
     }
+    */
 }

@@ -32,3 +32,7 @@ added support for robot array in automail. made various robot attributes public 
 check for invalid robot config (2 weak robots) and exit system if detected
 
 put generateAllMail in MailGenerator constructor
+
+change mailenerator MAIL_TO_CREATE with MAIL_AMOUNT -> generator.MAIL_TO_CREATE in main is less confusing. MAIL_TO_CREATE is only true until all mail has been created, then it is the number of mail created.	
+
+moved ReportDelivery to its own class, static so that main doesnt have to pass to automail. MAIL_DELIVERED is a link between simulation and report delivery i would get rid of if i could. Consider a singleton pattern for ReportDelivery?

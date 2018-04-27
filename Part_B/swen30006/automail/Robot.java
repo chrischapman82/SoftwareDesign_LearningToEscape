@@ -13,7 +13,7 @@ public abstract class Robot {
 
 	public StorageTube tube;
     public IRobotBehaviour behaviour;
-    public IMailDelivery delivery;
+    //public ReportDelivery delivery;
     protected final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
@@ -32,18 +32,17 @@ public abstract class Robot {
      * Initiates the robot's location at the start to be at the mailroom
      * also set it to be waiting for mail.
      * @param behaviour governs selection of mail items for delivery and behaviour on priority arrivals
-     * @param delivery governs the final delivery
+     * @param reportDelivery governs the final delivery
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IMailDelivery delivery, IMailPool mailPool, boolean strong, int tubeCapacity){
+    public Robot(IMailPool mailPool, boolean strong, int tubeCapacity){
     	id = "R" + hashCode();
         // current_state = RobotState.WAITING;
     	current_state = RobotState.RETURNING;
         current_floor = Building.MAILROOM_LOCATION;
         this.tube = new StorageTube(tubeCapacity);
         this.behaviour = new MyRobotBehaviour(strong);
-        this.delivery = delivery;
         this.mailPool = mailPool;
         this.isStrong = strong;
         this.deliveryCounter = 0;
@@ -87,7 +86,7 @@ public abstract class Robot {
     			boolean wantToReturn = behaviour.returnToMailRoom(tube);
     			if(current_floor == destination_floor){ // If already here drop off either way
                     /** Delivery complete, report this to the simulator! */
-                    delivery.deliver(deliveryItem);
+                    ReportDelivery.getReportDelivery().deliver(deliveryItem);
                     deliveryCounter++;
                     if(deliveryCounter > 4){
                     	throw new ExcessiveDeliveryException();
