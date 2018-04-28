@@ -1,7 +1,6 @@
 package strategies;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import automail.Building;
 import automail.MailItem;
@@ -10,13 +9,11 @@ import automail.Robot;
 import automail.RobotBig;
 import automail.RobotStrong;
 import automail.RobotWeak;
-import strategies.*;
 
 public class MasterPool implements IMasterPool {
 
 	// we have determined there to be 2 robots and 2 sub-pools in this implementation
-	private static final int NUM_ROBOTS = 2;		// The number of robots in the system
-	private static final int NUM_POOLS = 2;			// The number of pools to be used	
+	private static final int NUM_ROBOTS = 2;		// The number of robots in the system	
 	
 	private int divider;				// The floor that divides the building in half
 	private ArrayList<Robot> robots;	// The robots that are being used
@@ -25,12 +22,11 @@ public class MasterPool implements IMasterPool {
 	
 	public MasterPool(ArrayList<Robot> robots) {
 		
-		divider = Building.FLOORS / 2;
+		divider = Building.FLOORS / 2;	// Sets divider to the floor in the middle (floored)
+		upperPool = new SubPool();		// The mail pool for the upper half of the building
+		lowerPool = new SubPool();		// The mail pool for the lower half of the building
 		
-		upperPool = new SubPool();
-		lowerPool = new SubPool();
-		
-		this.robots = robots;
+		this.robots = robots;			// Stores the robots for later use
 		
 		// Confirms correct number and type of robots
 		assert(robots.size() == NUM_ROBOTS);
@@ -40,6 +36,7 @@ public class MasterPool implements IMasterPool {
 			System.exit(0);
 		}
 		
+		// Assign the current robots to their respective pools
 		assignRobotsToPools(robots.get(0), robots.get(1));
 	}
 	

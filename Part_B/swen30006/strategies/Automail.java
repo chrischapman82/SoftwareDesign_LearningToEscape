@@ -71,6 +71,7 @@ public class Automail {
         }
     }
     
+    
     /**
      * Notifies robots of an arriving mailItem, sending information about
      * the priority level and weight.
@@ -83,7 +84,6 @@ public class Automail {
     		r.behaviour.priorityArrival(priorityLevel, weight);
     	}
     }
-    
     
     // TODO double check this
     public void step() {
