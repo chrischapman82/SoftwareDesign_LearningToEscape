@@ -1,0 +1,20 @@
+Discuss the changes you have made in your branch:
+
+
+Created a PropertiesLoader class. Since variables are private and there are only getters, it is immutable and since everything is static it can be acccessed everywhere without instantiation. 
+Replaced previous instances of variables with corresponding PropertiesLoader.get...() methods.
+
+Removed whatever method arguments that are given by Properties as they can be accessed directly now. Removing arguments is decreasing coupling between method caller and method executer. But, executer now is coupled with propertiesloader class since they depend on it having the variable needed.
+
+mailgenerator now longer has any arguments. It gets mail to create and seed from PropertiesLoader and instead of inputting mailitems directly to a mailpool it returns mail for the current clock time in getMail(). This has reduced its coupling with simulation since it doesnt rely on args from it anymore. Furthermore it does not need to store a mailpool as an attribute. Increased coupling with PropertiesLoader, but the alternative of putting propertiesloader through simulation into mailgen gives simulation information it doesnt need to use.
+
+made a step() function in automail so that simulation doesnt have to access automail.robot.step(), not is just automail.step(). simulation should not have knowledge of the inner workings of its associations, because otherwise they become highly coupled and difficult to use in isolation. Now if automail decides to store robots differently (we changed robot1 robot2 atributes to robot arraylist attribute), simulation doesnt need to know as we can modify the step() function in automail to absorb the change. 
+
+ReportDelivery static class in simulation removed, now is static method instead. Reduces arguments passed into automail into robot. Locks us into having one simulation running at a time only but this should be acceptable as reading from the properties file does not support multiple simulations anyway. Removal of interface reduces protection against variation but its minor because the simulation class should be stable compared to strategies where most of the changes are expected to take place. (since the whole system is a simulation for testing various strategies)
+
+Removed variable "complete" (finished creating mail flag) in MailGenerator, adjusted other parts appropriately
+
+Replaced hashmap seed with int value only. Seed existence can be chacked against null, no need for such a data structure.
+
+Renamed "strong" variable to "isStrong" in Robot
+

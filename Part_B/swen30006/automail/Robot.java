@@ -14,7 +14,7 @@ public abstract class Robot {
 	public StorageTube tube;
     public IRobotBehaviour behaviour;
     //public ReportDelivery delivery;
-    protected final String id;
+    private final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
     public RobotState current_state;
@@ -133,7 +133,7 @@ public abstract class Robot {
     private void setRoute() throws ItemTooHeavyException{
         /** Pop the item from the StorageUnit */
         deliveryItem = tube.pop();
-        if (!isStrong && deliveryItem.weight > 2000) throw new ItemTooHeavyException(); 
+        if (!isStrong && deliveryItem.getWeight() > 2000) throw new ItemTooHeavyException(); 
         /** Set the destination floor */
         destination_floor = deliveryItem.getDestFloor();
     }
