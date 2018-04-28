@@ -1,10 +1,10 @@
 package automail;
 
+
 /**
  * A strong robot that is a variation of the standard robot that is able to lift
  * heavy items and can carry 4 items in a tube.
  */
-
 public class RobotStrong extends Robot {
 
 	public static final boolean IS_STRONG = true;

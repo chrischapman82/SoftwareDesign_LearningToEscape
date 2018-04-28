@@ -1,6 +1,5 @@
 package automail;
 
-import strategies.IMailPool;
 
 
 /**

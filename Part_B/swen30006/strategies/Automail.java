@@ -21,6 +21,7 @@ public class Automail {
     	robots = new ArrayList<>();				// Init list of robots
 
     	// Create robots based on specifications in properties file
+
     	for (String robotType : PropertiesLoader.getRobotTypes()) {
     		robots.add(createRobot(robotType));
     	}

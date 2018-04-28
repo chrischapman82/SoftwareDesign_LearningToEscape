@@ -13,7 +13,6 @@ public abstract class Robot {
 
 	public StorageTube tube;
     public IRobotBehaviour behaviour;
-    //public ReportDelivery delivery;
     private final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
@@ -22,9 +21,7 @@ public abstract class Robot {
     private int destination_floor;
     private IMailPool mailPool;
     private boolean isStrong;
-    
     private MailItem deliveryItem;
-    
     private int deliveryCounter;
     
 
