@@ -3,11 +3,6 @@
 Design Criticisms:
 
 
-Polymoprhism:
-Reduced reuse of code
-Lower representation gap
-Classses are in charge of specific creation
-
 1. In the provided package, Robot differentiates between different types of robots with the strong attribute. While it works reasonably well for a system with two robot types, it makes extension and modification of types of robots difficult. We proprosed using polymorphism, creating the classes RobotBig, RobotWeak and RobotStrong which inherit robot. This reduces complexity and reuse of code, allowing simpler comparisons through comparing class types, which scales much better with additioinal types of robots. Also leads to better delegation, where subclasses are in charge of their own creation, containing information such as the strength of the robot and tube size for robot creation. Furthermore, this alternative allows for the addition of another robot type to be simpler and would follow the open-closed principle. For example, if we were to add a new type of robot, a weak robot that can carry 6 items, the suggested system would be closed to modifications, requiring no changes to robot, and open to extension, creating a new subclass of robot to implement the new requirements.
 
 
@@ -29,24 +24,18 @@ notifies all robots of priority arriavls, regardless of how many there are. We d
 Automail is the system which agregates robots and the MailPool. Therefore simulation only calls one function, addIncomingMail, and 
 autommail notifies robots of priority items and adds mail to mailPool.
 
-4. 
 
 
+In the initial design, IMailPool only works for one configuration of robots, in the given case, weak and strong. This implementation has very poor extendibility, where having a different set of robots requires creating a new <Robot1><Robot2>MailPool implementation of mail pool. This is due to the high coupling between MailPool, robot and automail, where MailPool is required to create robot, and robot information is required to create different MailPools. Our solution implements indirection via a new interface (following the strategies pattern) IMasterPool. IMasterPool controls and maintains the mail pools, distributing mail based on mailItem information and coupling robots with their mailpool. This results in more flexbile code, where IMailPool can be used for different sets of robots. This also leads to better encapsulation, where robots will only interact with a corresponding mailPool and avoids the previous requirement of giving robot information (such as isStrong) to the pool. 
 
 
-
-
-
-
-
-
------------------------------------------------------------
-Added createRobot method to automail which takes a robot type tag to create a robot. Reduces repeat code during robot creation. Also clearer, using definitive robot name tags rather than boolean is strong.
-
-Changed robot1 and robot2 to list of robots. Allows for greater flexibility, being able to take input of more than just the required 2 robots.
 
 -----------------------------------------------------------
 other changes that were made:
+
+Added createRobot method to automail which takes a robot type tag to create a robot. Reduces repeat code during robot creation. Also clearer, using definitive robot name tags rather than boolean is strong.
+
+Changed robot1 and robot2 to list of robots. Allows for greater flexibility, being able to take input of more than just the required 2 robots.
 
 (copypasted from raymond_branch_changes)
 
