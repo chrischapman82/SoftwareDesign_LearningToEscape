@@ -8,35 +8,17 @@ import exceptions.ItemTooHeavyException;
 
 public class Automail {
 	
-    public ArrayList<Robot> robots;
-
-    public IMailPool mailPool;
-    
-
-    public MasterPool masterPool;
-    
-
-    public static final String BOT_WEAK = "weak";
-    public static final String BOT_STRONG = "strong";
-    public static final String BOT_BIG = "big";
+    private static final String BOT_WEAK = "weak";
+    private static final String BOT_STRONG = "strong";
+    private static final String BOT_BIG = "big";
+	private ArrayList<Robot> robots;
+    private MasterPool masterPool;
     
     public Automail() {
     	    	
     	// Initialise the robots arraylist
     	robots = new ArrayList<>();
     	
-    	/** Initialize the MailPool */
-    	mailPool = new WeakStrongMailPool();
-    	/*
-    	String robot1Type = PropertiesLoader.getRobot1Type();
-    	String robot2Type = PropertiesLoader.getRobot2Type();
-    	
-    	if(robot1Type == BOT_WEAK && robot2Type == BOT_WEAK) {
-    		System.err.println("Two weak robots is too weak");
-    		System.exit(0);
-    	}*/
-    	
-
     	//initialise robots based on specifications in properties file
     	for (String robotType : PropertiesLoader.getRobotTypes()) {
     		robots.add(createRobot(robotType));

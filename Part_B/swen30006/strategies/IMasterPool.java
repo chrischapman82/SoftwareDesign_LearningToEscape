@@ -1,5 +1,4 @@
 package strategies;
-import java.util.ArrayList;
 
 import automail.*;
 
@@ -7,6 +6,6 @@ import automail.*;
 public interface IMasterPool {
 	
 	// passes off mail to a mail pool
-	void distributeMail(MailItem m);
+	public void distributeMail(MailItem mailItem);
 	
 }

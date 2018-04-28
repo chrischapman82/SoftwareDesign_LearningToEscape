@@ -15,12 +15,12 @@ public interface IMailPool {
      * Adds an item to the mail pool
      * @param mailItem the mail item being added.
      */
-    void addToPool(MailItem mailItem);
+    public void addToPool(MailItem mailItem);
     
     /**
      * @param tube refers to the pack the robot uses to deliver mail.
      * @param strong is whether the tube belongs to a strong robot.
      */
-	void fillStorageTube(StorageTube tube, boolean strong);
+	public void fillStorageTube(StorageTube tube, boolean strong);
     
 }
