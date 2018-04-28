@@ -1,7 +1,5 @@
 package automail;
 
-import strategies.IMailPool;
-
 /**
  * A strong robot that is a variation of the standard robot that is able to lift
  * heavy items and can carry 4 items in a tube.

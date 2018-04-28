@@ -17,8 +17,8 @@ public class Simulation {
 
     public static void main(String[] args) { 
 
-    	PropertiesLoader.loadProperties();
-        Automail automail = new Automail();
+    	PropertiesLoader.loadProperties();	// Loads properties from properties file
+        Automail automail = new Automail();	// Initialises 
         MailGenerator generator = new MailGenerator();
         
         /** Initiate all the mail */
@@ -39,6 +39,7 @@ public class Simulation {
         printResults();
     }
     
+    
 	public static void deliver(MailItem deliveryItem){
 		if(!MAIL_DELIVERED.contains(deliveryItem)){
             System.out.printf("T: %3d > Delivered     [%s]%n", Clock.Time(), deliveryItem.toString());
@@ -55,7 +56,6 @@ public class Simulation {
 		}
 	}
 
-    
     private static double calculateDeliveryScore(MailItem deliveryItem) {
     	// Penalty for longer delivery times
     	double priority_weight = 0;

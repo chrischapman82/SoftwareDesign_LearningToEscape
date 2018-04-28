@@ -4,7 +4,6 @@ import automail.PropertiesLoader;
 
 public class Building {
 	
-	
     /** The number of floors in the building **/
     public static final int FLOORS = PropertiesLoader.getFloorsInBuilding();
     
@@ -13,5 +12,4 @@ public class Building {
     
     /** Represents the mailroom location */
     public static final int MAILROOM_LOCATION = 1;
-
 }
