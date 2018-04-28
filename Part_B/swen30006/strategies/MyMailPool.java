@@ -12,7 +12,7 @@ public class MyMailPool implements IMailPool {
 	}
 
 	@Override
-	public void fillStorageTube(StorageTube tube, boolean strong) {
+	public void fillStorageTube(StorageTube tube) {
 		// TODO Auto-generated method stub
 
 	}

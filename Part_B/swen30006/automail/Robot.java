@@ -36,7 +36,7 @@ public abstract class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot( boolean strong, int tubeCapacity){
+    public Robot(boolean strong, int tubeCapacity){
 
     	id = "R" + hashCode();
         // current_state = RobotState.WAITING;
@@ -75,7 +75,7 @@ public abstract class Robot {
                 }
     		case WAITING:
     			/** Tell the sorter the robot is ready */
-    			mailPool.fillStorageTube(tube, isStrong);
+    			mailPool.fillStorageTube(tube);
                 // System.out.println("Tube total size: "+tube.getTotalOfSizes());
                 /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
                 if(!tube.isEmpty()){

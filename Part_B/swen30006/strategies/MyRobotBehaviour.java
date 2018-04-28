@@ -21,7 +21,6 @@ public class MyRobotBehaviour implements IRobotBehaviour {
     public void priorityArrival(int priority, int weight) {
     	if (priority > newPriority) newPriority = priority;  // Only the strong robot will deliver priority items so weight of no interest
     }
- 
 	private int tubePriority(StorageTube tube) {  // Assumes at least one item in tube
 		MailItem item = tube.peek();
 		return (item instanceof PriorityMailItem) ? ((PriorityMailItem) item).getPriorityLevel() : 0;
@@ -36,6 +35,5 @@ public class MyRobotBehaviour implements IRobotBehaviour {
 			// Assumes that the one at the top of the tube has the highest priority
 			return strong && newPriority > tubePriority(tube);
 		}
-	}
-	
+	}	
 }

@@ -21,6 +21,6 @@ public interface IMailPool {
      * @param tube refers to the pack the robot uses to deliver mail.
      * @param strong is whether the tube belongs to a strong robot.
      */
-	void fillStorageTube(StorageTube tube, boolean strong);
+	void fillStorageTube(StorageTube tube);
     
 }
