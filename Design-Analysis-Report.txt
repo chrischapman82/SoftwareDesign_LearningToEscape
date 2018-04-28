@@ -8,15 +8,8 @@ Reduced reuse of code
 Lower representation gap
 Classses are in charge of specific creation
 
-In the provided package, Robot differentiates between different types of robots with the strong attribute. While it works reasonably well
-for the initial two robots, it makes extension to the types of robots difficult. We proprosed using polymorphism, delegating
-initialisation and pertinent information about types of robots to , of 
+1. In the provided package, Robot differentiates between different types of robots with the strong attribute. While it works reasonably well for a system with two robot types, it makes extension and modification of types of robots difficult. We proprosed using polymorphism, creating the classes RobotBig, RobotWeak and RobotStrong which inherit robot. This reduces complexity and reuse of code, allowing simpler comparisons through comparing class types, which scales much better with additioinal types of robots. Also leads to better delegation, where subclasses are in charge of their own creation, containing information such as the strength of the robot and tube size for robot creation. Furthermore, this alternative allows for the addition of another robot type to be simpler and would follow the open-closed principle. For example, if we were to add a new type of robot, a weak robot that can carry 6 items, the suggested system would be closed to modifications, requiring no changes to robot, and open to extension, creating a new subclass of robot to implement the new requirements.
 
-
-
-1. In the provided package, Robot is a concrete class with weak and strong robots defined by a boolean attributes. This is a poor 
-design choice because it does not fascilitate polymorphism. We used a Robot constructor which takes a Robot type parameter in 
-Automail because Automail aggregates and closely uses instances of Robot.
 
 2. MailGenerator contains a pointer to MailPool, which reduces cohesion and increases the representational gap for how the system 
 should intuitively work. MailGenerator should intuitively do one thing: generate mail. The provided package requires simulation to 
