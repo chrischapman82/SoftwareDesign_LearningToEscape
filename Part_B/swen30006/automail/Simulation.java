@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * This class simulates the behaviour of AutoMail
- */
+ */	
 public class Simulation {
 	
     private static ArrayList<MailItem> MAIL_DELIVERED = new ArrayList<MailItem>();
