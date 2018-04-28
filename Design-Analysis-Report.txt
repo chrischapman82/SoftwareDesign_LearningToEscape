@@ -40,11 +40,17 @@ autommail notifies robots of priority items and adds mail to mailPool.
 
 
 
+-----------------------------------------------------------
+Added createRobot method to automail which takes a robot type tag to create a robot. Reduces repeat code during robot creation. Also clearer, using definitive robot name tags rather than boolean is strong.
+
+Changed robot1 and robot2 to list of robots. Allows for greater flexibility, being able to take input of more than just the required 2 robots.
 
 -----------------------------------------------------------
 other changes that were made:
 
 (copypasted from raymond_branch_changes)
+
+
 
 log of most changes made in raymond branch that were merged to master
 
