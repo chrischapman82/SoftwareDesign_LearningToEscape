@@ -8,13 +8,9 @@ import automail.*;
  */
 public interface IMasterPool {
 	
-<<<<<<< HEAD
+
 	/* Distributes mailItem to one of its mail pools based on mail attributes.
 	 */
-	void distributeMail(MailItem m);
-=======
-	// passes off mail to a mail pool
-	public void distributeMail(MailItem mailItem);
->>>>>>> raymond
+	public void distributeMail(MailItem m);
 	
 }
