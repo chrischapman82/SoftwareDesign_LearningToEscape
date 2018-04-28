@@ -10,8 +10,7 @@ public class PriorityMailItem extends MailItem{
         this.PRIORITY_LEVEL = priority_level;
 	}
 	
-   /*
-    * @return the priority level of a mail item
+    /* @return the priority level of a mail item
     */
    public int getPriorityLevel(){
        return PRIORITY_LEVEL;
