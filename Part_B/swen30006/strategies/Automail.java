@@ -14,7 +14,6 @@ import exceptions.ItemTooHeavyException;
 public class Automail {
 	
     public ArrayList<Robot> robots;	// List of all robots
-    public IMailPool mailPool;		// Strategy used for mailPool
     public MasterPool masterPool;	// TODO
     
     public Automail() {
@@ -28,9 +27,7 @@ public class Automail {
     	
     	// Init master pool
     	masterPool = new MasterPool(robots);
-    }
-    
-    
+    }    
     
     /* 
      * Creates and returns a robot based off of:
