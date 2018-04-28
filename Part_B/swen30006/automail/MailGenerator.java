@@ -9,11 +9,8 @@ import java.util.*;
 public class MailGenerator {
 
     public final int MAIL_AMOUNT;
-
     private int mailCreated;
-
     private final Random random;
-    
     private HashMap<Integer,ArrayList<MailItem>> allMail;
 
     /**
@@ -81,9 +78,7 @@ public class MailGenerator {
             }
             /** Mark the mail as created */
             mailCreated++;
-
         }
-
     }
     
     /**

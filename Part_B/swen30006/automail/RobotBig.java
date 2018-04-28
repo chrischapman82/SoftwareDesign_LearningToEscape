@@ -1,7 +1,5 @@
 package automail;
 
-import strategies.IMailPool;
-
 
 /**
  * RobotBig is is a variation of the standard robot that is able to lift

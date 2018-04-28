@@ -10,7 +10,6 @@ import java.util.Stack;
  */
 public class StorageTube {
 
-	// TODO take capacity as an input
     public final int capacity;
     public Stack<MailItem> tube;
 
