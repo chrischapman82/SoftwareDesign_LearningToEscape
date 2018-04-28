@@ -14,7 +14,7 @@ public abstract class Robot {
 	public StorageTube tube;
     public IRobotBehaviour behaviour;
     //public ReportDelivery delivery;
-    protected final String id;
+    private final String id;
     /** Possible states the robot can be in */
     public enum RobotState { DELIVERING, WAITING, RETURNING }
     public RobotState current_state;
@@ -36,7 +36,7 @@ public abstract class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot( boolean strong, int tubeCapacity){
+    public Robot(boolean strong, int tubeCapacity){
 
     	id = "R" + hashCode();
         // current_state = RobotState.WAITING;
