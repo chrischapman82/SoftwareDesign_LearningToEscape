@@ -37,7 +37,7 @@ public class SubPool implements IMailPool {
 		// This doesn't attempt to put the re-add items back in time order but there will be relatively few of them,
 		// from the strong robot only, and only when it is recalled with undelivered items.
 		// Check whether mailItem is for strong robot
-		System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), mailItem.toString());
+		
 		
 		if (mailItem instanceof PriorityMailItem) {  // Add in priority order
 			int priority = ((PriorityMailItem) mailItem).getPriorityLevel();
