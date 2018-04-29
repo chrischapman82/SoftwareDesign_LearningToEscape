@@ -38,7 +38,6 @@ public abstract class Robot {
     public Robot(boolean strong, int tubeCapacity){
 
     	id = "R" + hashCode();
-        // current_state = RobotState.WAITING;
     	current_state = RobotState.RETURNING;
         current_floor = Building.MAILROOM_LOCATION;
         this.tube = new StorageTube(tubeCapacity);
@@ -75,10 +74,10 @@ public abstract class Robot {
     		case WAITING:
     			/** Tell the sorter the robot is ready */
     			mailPool.fillStorageTube(tube);
-                // System.out.println("Tube total size: "+tube.getTotalOfSizes());
                 /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
                 if(!tube.isEmpty()){
-                	deliveryCounter = 0; // reset delivery counter
+                	// reset delivery counter
+                	deliveryCounter = 0; 
         			behaviour.startDelivery();
         			setRoute();
                 	changeState(RobotState.DELIVERING);
@@ -87,7 +86,8 @@ public abstract class Robot {
     		case DELIVERING:
     			/** Check whether or not the call to return is triggered manually **/
     			boolean wantToReturn = behaviour.returnToMailRoom(tube);
-    			if(current_floor == destination_floor){ // If already here drop off either way
+    			if(current_floor == destination_floor){ 
+    				// If already here drop off either way
                     /** Delivery complete, report this to the simulator! */
                     Simulation.deliver(deliveryItem);
                     deliveryCounter++;
@@ -96,7 +96,6 @@ public abstract class Robot {
                     }
                     /** Check if want to return or if there are more items in the tube*/
                     if(wantToReturn || tube.isEmpty()){
-                    // if(tube.isEmpty()){
                     	changeState(RobotState.RETURNING);
                     }
                     else{
@@ -104,23 +103,9 @@ public abstract class Robot {
                         setRoute();
                         changeState(RobotState.DELIVERING);
                     }
-    			} else
-    			{/*
-	    			if(wantToReturn){
-	    				// Put the item we are trying to deliver back
-	    				try {
-							tube.addItem(deliveryItem);
-						} catch (TubeFullException e) {
-							e.printStackTrace();
-						}
-	    				changeState(RobotState.RETURNING);
-	    			}
-	    			else{*/
-	        			/** The robot is not at the destination yet, move towards it! */
-	                        moveTowards(destination_floor);
-	                /*
-	    			}
-	    			*/
+    			} 
+    			else{
+	    			moveTowards(destination_floor);
     			}
                 break;
     	}
@@ -164,6 +149,7 @@ public abstract class Robot {
     	}
     }
     
+    //Given fix for standardising robot id
     static int count = 0;
     static Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
     @Override

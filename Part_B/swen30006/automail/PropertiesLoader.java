@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public final class PropertiesLoader {
+	/** The variables specified in the properties file. **/
 	private static Double timePenalty;
 	private static Integer mailToCreate;
 	private static Integer seed;
@@ -47,27 +48,44 @@ public final class PropertiesLoader {
         }
 	}
 
+	/**
+	 * @return A Double representing the scaling of penalty for slow delivery of items
+	 */
 	public static Double getTimePenalty() {
 		return timePenalty;
 	}
 
+	/**
+	 * @return Integer representing the initial specification for amount of mail to create
+	 */
 	public static Integer getMailToCreate() {
 		return mailToCreate;
 	}
 
+	/**
+	 * @return Integer representing the seed value for random generation in the simulation
+	 */
 	public static Integer getSeed() {
 		return seed;
 	}
 
+	/**
+	 * @return Integer representing the cutoff time for new mail to arrive
+	 */
 	public static Integer getLastDeliveryTime() {
 		return lastDeliveryTime;
 	}
 
+	/**
+	 * @return Integer amount of floors in the building for the simulation
+	 */
 	public static Integer getFloorsInBuilding() {
 		return floorsInBuilding;
 	}
 	
-	
+	/**
+	 * @return Arraylist of strings, each entry will specify the type of robot to be used in simulation
+	 */
 	public static ArrayList<String> getRobotTypes() {
 		return robotTypes;
 	}

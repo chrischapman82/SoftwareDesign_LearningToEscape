@@ -39,7 +39,10 @@ public class Simulation {
         printResults();
     }
     
-    
+    /**
+     * Notify simulation when items are delivered for performance evaluation
+     * @param deliveryItem the MailItem delivered
+     */
 	public static void deliver(MailItem deliveryItem){
 		if(!MAIL_DELIVERED.contains(deliveryItem)){
             System.out.printf("T: %3d > Delivered     [%s]%n", Clock.Time(), deliveryItem.toString());
@@ -66,6 +69,9 @@ public class Simulation {
         return Math.pow(Clock.Time() - deliveryItem.getArrivalTime(),PropertiesLoader.getTimePenalty())*(1+Math.sqrt(priority_weight));
     }
 
+    /**
+     * Print the total score of the simulation
+     */
     public static void printResults(){
         System.out.println("T: "+Clock.Time()+" | Simulation complete!");
         System.out.println("Final Delivery time: "+Clock.Time());

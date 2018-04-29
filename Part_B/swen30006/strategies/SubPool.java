@@ -2,7 +2,6 @@ package strategies;
 
 import java.util.*;
 
-import automail.Clock;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.StorageTube;

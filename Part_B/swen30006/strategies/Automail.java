@@ -12,15 +12,16 @@ import exceptions.ItemTooHeavyException;
  *  
  */
 public class Automail {
-	
-    public ArrayList<Robot> robots;	// List of all robots
-    public MasterPool masterPool;	// TODO
+	// List of all robots
+    public ArrayList<Robot> robots;	
+    // Controller for mailpools assigned to active robots
+    public MasterPool masterPool;	
     
     public Automail() {
-    	robots = new ArrayList<>();				// Init list of robots
+    	// Init list of robots
+    	robots = new ArrayList<>();				
 
     	// Create robots based on specifications in properties file
-
     	for (String robotType : PropertiesLoader.getRobotTypes()) {
     		robots.add(createRobot(robotType));
     	}
@@ -84,8 +85,11 @@ public class Automail {
     	}
     }
     
-    // TODO double check this
+    /**
+     * Progress the system one time unit forward
+     */
     public void step() {
+    	//each robot takes an action
     	for(Robot r: robots) {
     		try {
 				r.step();
