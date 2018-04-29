@@ -5,6 +5,8 @@ import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
 import strategies.IRobotBehaviour;
 import strategies.MyRobotBehaviour;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The robot delivers mail!
@@ -162,5 +164,14 @@ public abstract class Robot {
     	}
     }
     
-
+    static int count = 0;
+    static Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
+    @Override
+    public int hashCode() {
+      Integer hash0 = super.hashCode();
+      Integer hash = hashMap.get(hash0);
+      
+      if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
+      return hash;
+    }
 }

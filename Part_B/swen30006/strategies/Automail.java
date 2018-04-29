@@ -60,6 +60,7 @@ public class Automail {
     public void addIncomingMail(ArrayList<MailItem> mail) {
     	// add the mail to the pool
         for(MailItem m: mail) {
+        	System.out.printf("T: %3d > new addToPool [%s]%n", Clock.Time(), m.toString());
         	masterPool.distributeMail(m);
         	//check for priority mail to send priority arrival alert to robots
         	if (m instanceof PriorityMailItem) {
